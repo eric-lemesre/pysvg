@@ -2,7 +2,7 @@ Package Contents:
 
 /usr/share/pysvg/filetext.py
 
-Mdule responsible for carrying out the processing operations of the data file input and output.
+Module responsible for carrying out the processing operations of the data file input and output.
 
 /usr/share/pysvg/svgelements.py
 
