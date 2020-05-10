@@ -47,11 +47,12 @@
 __docformat__ = 'epytext en'
 
 ###############################################################################
-## Imports
+# Imports
 ###############################################################################
 
 from math import cos, sin, pi
 import sys
+
 
 ###############################################################################
 # Svgelements Objects: Abstract Base Classes
@@ -94,13 +95,14 @@ class Svgelements:
         @rtype: C{string,string}
         """
 
-        stringcab = "<?xml version=\"1.0\"?>\n\n<!DOCTYPE svg PUBLIC \"-//W3C"\
-        + "//DTD SVG 1.1//EN\"\n\"http://www.w3.org/Graphics/SVG/1.1/DTD/"\
-        + "svg11.dtd\">\n\n<svg xmlns=\"http://www.w3.org/2000/svg\" "\
-        + "version=\"1.1\">\n<g id=\"body\" style = \"fill-opacity:1.0; "\
-        + "stroke:black; stroke-width:1;\">\n"
+        stringcab = "<?xml version=\"1.0\"?>\n\n<!DOCTYPE svg PUBLIC \"-//W3C" \
+                    + "//DTD SVG 1.1//EN\"\n\"http://www.w3.org/Graphics/SVG/1.1/DTD/" \
+                    + "svg11.dtd\">\n\n<svg xmlns=\"http://www.w3.org/2000/svg\" " \
+                    + "version=\"1.1\">\n<g id=\"body\" style = \"fill-opacity:1.0; " \
+                    + "stroke:black; stroke-width:1;\">\n"
         stringend = "</g>\n</svg>\n"
         return stringcab, stringend
+
 
 ###############################################################################
 
@@ -110,9 +112,9 @@ class Text:
     Base class to build text items in SVG code. This element will
     be drawn in horizontal direction
     """
+
     def __init__(self, xorigin, yorigin, fontsize, text,
                  stroke="black", idtext="text"):
-
         self.xorigintext = xorigin
         """@ivar: is the X initial coordinate of the object
         @type: C{number}"""
@@ -140,11 +142,12 @@ class Text:
         @rtype: C{string}
         """
         string = "<text id=\"" + str(self.idtext) + "\" x=\"" \
-        + str(self.xorigintext) + "\" y=\"" + str(self.yorigintext) + \
-        "\" text-anchor=\"start\" font-size=\"" + str(self.fontsizetext) + \
-        "\" font-family=\"arial\" stroke=\"" + str(self.stroketext) + "\"> " \
-        + str(self.text) + " </text>\n"
+                 + str(self.xorigintext) + "\" y=\"" + str(self.yorigintext) + \
+                 "\" text-anchor=\"start\" font-size=\"" + str(self.fontsizetext) + \
+                 "\" font-family=\"arial\" stroke=\"" + str(self.stroketext) + "\"> " \
+                 + str(self.text) + " </text>\n"
         return string
+
 
 ###############################################################################
 
@@ -153,6 +156,7 @@ class Line:
     """ Base class to build line items in SVG code. This element will
     generally be used to draw the axes of the graphs.
     """
+
     def __init__(self, xorigin, yorigin, endx, endy, ygrid="no",
                  strokecolor="black", strokewidth=2):
         self.xoriginline = xorigin
@@ -199,28 +203,30 @@ class Line:
             self.strokewidthline = 2
             strokedasharray = "4, 4, 4, 4"
             string = "<line x1=" + "\"" + str(self.xoriginline) + "\" y1= \"" \
-            + str(self.yoriginline) + "\" x2= \"" + str(self.endxline) + \
-            "\" y2= \"" + str(self.endyline) + "\"" + " stroke= \"" \
-            + str(self.strokecolorline) + "\" stroke-width= \"" \
-            + str(self.strokewidthline) + "\" stroke-dasharray= \"" \
-            + str(strokedasharray) + "\" />" + "\n"
+                     + str(self.yoriginline) + "\" x2= \"" + str(self.endxline) + \
+                     "\" y2= \"" + str(self.endyline) + "\"" + " stroke= \"" \
+                     + str(self.strokecolorline) + "\" stroke-width= \"" \
+                     + str(self.strokewidthline) + "\" stroke-dasharray= \"" \
+                     + str(strokedasharray) + "\" />" + "\n"
         else:
-            string = "<line x1=" + "\"" + str(self.xoriginline) + "\" y1= \""\
-            + str(self.yoriginline) + "\" x2= \"" + str(self.endxline) + \
-            "\" y2= \"" + str(self.endyline) + "\"" + " stroke= \""\
-            + str(self.strokecolorline) + "\" stroke-width= \"" + \
-            str(self.strokewidthline) + "\" />" + "\n"
+            string = "<line x1=" + "\"" + str(self.xoriginline) + "\" y1= \"" \
+                     + str(self.yoriginline) + "\" x2= \"" + str(self.endxline) + \
+                     "\" y2= \"" + str(self.endyline) + "\"" + " stroke= \"" \
+                     + str(self.strokecolorline) + "\" stroke-width= \"" + \
+                     str(self.strokewidthline) + "\" />" + "\n"
         return string
+
 
 ###############################################################################
 
 
 class Rectangle:
     """ Base class to build rectangle items in SVG code."""
+
     def __init__(self, height, width, xorigin, yorigin, idrect, fill,
                  filtered=False, filterid="none"):
 
-        #Svgelements.__init__(self)
+        # Svgelements.__init__(self)
         self.xoriginrect = xorigin
         """@ivar: is the X-coordenate of the initial point of the rectangle
         @type: C{number}"""
@@ -261,25 +267,25 @@ class Rectangle:
 
         """
         if self.rectfiltered:
-            string = "<rect id=\"" + self.idrect + "\" x=\""\
-            + str(self.xoriginrect) + "\" y=\"" + str(self.yoriginrect) + \
-            "\" height=\"" + str(self.heightrect) + "\" width=\""\
-            + str(self.widthrect) + "\" stroke-width=\"0\" stroke=\"" + \
-            str(self.fillrect) + "\" fill=\"" + self.fillrect + \
-            "\"  filter=\"url(#" + self.rectfilterid + ");\"/>\n"
+            string = "<rect id=\"" + self.idrect + "\" x=\"" \
+                     + str(self.xoriginrect) + "\" y=\"" + str(self.yoriginrect) + \
+                     "\" height=\"" + str(self.heightrect) + "\" width=\"" \
+                     + str(self.widthrect) + "\" stroke-width=\"0\" stroke=\"" + \
+                     str(self.fillrect) + "\" fill=\"" + self.fillrect + \
+                     "\"  filter=\"url(#" + self.rectfilterid + ");\"/>\n"
         else:
-            string = "<rect id=\"" + self.idrect + "\" x=\""\
-            + str(self.xoriginrect) + "\" y=\"" + str(self.yoriginrect) + \
-            "\" height=\"" + str(self.heightrect) + "\" width=\""\
-            + str(self.widthrect) + "\" stroke-width=\"1\" stroke=\"black\""\
-            + " fill=\"" + self.fillrect + "\" />\n"
+            string = "<rect id=\"" + self.idrect + "\" x=\"" \
+                     + str(self.xoriginrect) + "\" y=\"" + str(self.yoriginrect) + \
+                     "\" height=\"" + str(self.heightrect) + "\" width=\"" \
+                     + str(self.widthrect) + "\" stroke-width=\"1\" stroke=\"black\"" \
+                     + " fill=\"" + self.fillrect + "\" />\n"
         return string
+
 
 ###############################################################################
 
 
 class Polygon:
-
     """ Base class to build polygon items in SVG code."""
 
     def __init__(self, pointlist, idpolygon, fillcolor, filtered=False,
@@ -316,25 +322,25 @@ class Polygon:
         if not self.polygonfiltered:
             string = "<polygon id=\"" + self.idpolygon + "\" points=\""
             for i in range(len(self.polygonpointlist)):
-                string += str(self.polygonpointlist[i][0]) + ","\
-                + str(self.polygonpointlist[i][1]) + " "
-            string += "\" style=\"stroke:black; stroke-width:1; fill:"\
-            + self.polygonfillcolor + "\"/>\n"
+                string += str(self.polygonpointlist[i][0]) + "," \
+                          + str(self.polygonpointlist[i][1]) + " "
+            string += "\" style=\"stroke:black; stroke-width:1; fill:" \
+                      + self.polygonfillcolor + "\"/>\n"
         else:
             string = "<polygon id=\"" + self.idpolygon + "\" points=\""
             for i in range(len(self.polygonpointlist)):
-                string += str(self.polygonpointlist[i][0]) + ","\
-                + str(self.polygonpointlist[i][1]) + " "
-            string += "\" style=\"stroke:black; stroke-width:1; fill:"\
-            + self.polygonfillcolor + "; filter:url(#" + \
-            self.polygonfilterid + ");\"/>\n"
+                string += str(self.polygonpointlist[i][0]) + "," \
+                          + str(self.polygonpointlist[i][1]) + " "
+            string += "\" style=\"stroke:black; stroke-width:1; fill:" \
+                      + self.polygonfillcolor + "; filter:url(#" + \
+                      self.polygonfilterid + ");\"/>\n"
         return string
+
 
 ###############################################################################
 
 
 class Circle:
-
     """ Base class to build Circle items in SVG code."""
 
     def __init__(self, xorigin, yorigin, radius, strokewidth, strokecolor,
@@ -379,21 +385,21 @@ class Circle:
 
         if self.filteredcircle:
             return "<circle cx=\"" + str(self.xorigincircle) + "\" cy=\"" + \
-                    str(self.yorigincircle) + "\" r=\""\
-                    + str(self.radiuscircle) + "\"\n" + "style=\"fill:"\
-                    + self.fillcolorcircle + "; stroke:"\
-                    + self.strokecolorcircle + "; stroke-width:"\
-                    + str(self.strokewidthcircle) + "; filter:url(#"\
-                    + self.filteridcircle + ");\"/>\n"
+                   str(self.yorigincircle) + "\" r=\"" \
+                   + str(self.radiuscircle) + "\"\n" + "style=\"fill:" \
+                   + self.fillcolorcircle + "; stroke:" \
+                   + self.strokecolorcircle + "; stroke-width:" \
+                   + str(self.strokewidthcircle) + "; filter:url(#" \
+                   + self.filteridcircle + ");\"/>\n"
         else:
-            return "<circle cx=\"" + str(self.xorigincircle) + "\" cy=\""\
-                   + str(self.yorigincircle) + "\" r=\""\
-                   + str(self.radiuscircle) + "\"\n" + "style=\"fill:"\
-                   + self.fillcolorcircle + "; stroke:"\
-                   + self.strokecolorcircle + "; stroke-width:"\
+            return "<circle cx=\"" + str(self.xorigincircle) + "\" cy=\"" \
+                   + str(self.yorigincircle) + "\" r=\"" \
+                   + str(self.radiuscircle) + "\"\n" + "style=\"fill:" \
+                   + self.fillcolorcircle + "; stroke:" \
+                   + self.strokecolorcircle + "; stroke-width:" \
                    + str(self.strokewidthcircle) + ";\"/>\n"
-        
-    
+
+
 ############################################################################### 
 
 class Path:
@@ -429,12 +435,12 @@ class Path:
    
     Here is an example of the path used to draw the elliptical arc::
     
-    >>> print <path id="pie0" d="M200,200 L300.0,200.0 A100,100 0 0,1 
+    \>>> print <path id="pie0" d="M200,200 L300.0,200.0 A100,100 0 0,1
     ... 168.694819148,294.973605027 Z" fill="red" stroke="black" 
     ... stroke-width="1" onmouseover="animationOn('pie0');"
     ... onmouseout="animationOff('pie0');" filter="url(#lighting);"/>
     """
-    
+
     def __init__(self, xorigin, yorigin, radius, listvalues, colorfld, radian,
                  pos, initianradian, idpath, mouseover="", mouseout="",
                  filtered=False, filterid="none", strokewidth=0):
@@ -490,12 +496,12 @@ class Path:
         self.filterid = filterid
         """@ivar: is the filter identifier for path element
         @type: C{string}"""
-        
+
     def printsvg(self):
         """ 
         Returns a string with the code for a path as follows:: 
         
-        >>> print <path d="M (X-coordenate,Y-coordenate) 
+        \>>> print <path d="M (X-coordenate,Y-coordenate)
         ... L(X-endline-coordenate, Y-endline-coordenate) 
         ... A (X-radius,Y-radius 0 large-arc-flag,1 
         ... X-ending-point,Y-ending-point) Z"/> 
@@ -524,42 +530,43 @@ class Path:
         @rtype: C{string}
                 
         """
-        finalradian = self.initianradian 
-        if self.idpath != "":                   
+        finalradian = self.initianradian
+        if self.idpath != "":
             string = "<path id=\"" + self.idpath + "\"" + " d=\"M" + \
-            str(self.xorigin) + "," + str(self.yorigin) + " L" + \
-            str(self.xorigin + cos(self.initianradian) * self.radius) + "," \
-            + str(self.yorigin + sin(self.initianradian) * self.radius) + \
-            " A" + str(self.radius) + "," + str(self.radius) + " 0 "
-        else: 
+                     str(self.xorigin) + "," + str(self.yorigin) + " L" + \
+                     str(self.xorigin + cos(self.initianradian) * self.radius) + "," \
+                     + str(self.yorigin + sin(self.initianradian) * self.radius) + \
+                     " A" + str(self.radius) + "," + str(self.radius) + " 0 "
+        else:
             string = "<path d=\"M" + str(self.xorigin) + "," + \
-            str(self.yorigin) + " L" + str(self.xorigin + \
-            cos(self.initianradian) * self.radius) + "," + \
-            str(self.yorigin + sin(self.initianradian) * self.radius) + \
-            " A" + str(self.radius) + "," + str(self.radius) + " 0 "          
+                     str(self.yorigin) + " L" + str(self.xorigin + \
+                                                    cos(self.initianradian) * self.radius) + "," + \
+                     str(self.yorigin + sin(self.initianradian) * self.radius) + \
+                     " A" + str(self.radius) + "," + str(self.radius) + " 0 "
         if (self.radian > pi):
             string += "1"
         else:
-            string += "0" 
-        finalradian += self.radian 
-        if self.filtered:   
+            string += "0"
+        finalradian += self.radian
+        if self.filtered:
             string += ",1 " + str(self.xorigin + cos(finalradian) * \
-            self.radius) + "," + str(self.yorigin + sin(finalradian) * \
-            self.radius) + " Z\" fill=\"" + \
-            str(self.listvalues[int(self.colorfld) - 1][self.pos]) + \
-            "\" stroke=\"black\" stroke-width=\"" + \
-            str(self.strokewidth) + "\" onmouseover=\"" + self.mouseover + ""\
-            + "\" onmouseout=\"" + self.mouseout + \
-            "\" filter=\"url(#" + self.filterid + ");\"/>\n" 
+                                  self.radius) + "," + str(self.yorigin + sin(finalradian) * \
+                                                           self.radius) + " Z\" fill=\"" + \
+                      str(self.listvalues[int(self.colorfld) - 1][self.pos]) + \
+                      "\" stroke=\"black\" stroke-width=\"" + \
+                      str(self.strokewidth) + "\" onmouseover=\"" + self.mouseover + "" \
+                      + "\" onmouseout=\"" + self.mouseout + \
+                      "\" filter=\"url(#" + self.filterid + ");\"/>\n"
         else:
             string += ",1 " + str(self.xorigin + cos(finalradian) * \
-            self.radius) + "," + str(self.yorigin + sin(finalradian) * \
-            self.radius) + " Z\" fill=\"" + \
-            str(self.listvalues[int(self.colorfld) - 1][self.pos]) + \
-            "\" stroke=\"black\" stroke-width=\"" + str(self.strokewidth) + \
-            "\" onmouseover=\"" + self.mouseover + "" + "\" onmouseout=\"" + \
-            self.mouseout + "\"/>\n" 
+                                  self.radius) + "," + str(self.yorigin + sin(finalradian) * \
+                                                           self.radius) + " Z\" fill=\"" + \
+                      str(self.listvalues[int(self.colorfld) - 1][self.pos]) + \
+                      "\" stroke=\"black\" stroke-width=\"" + str(self.strokewidth) + \
+                      "\" onmouseover=\"" + self.mouseover + "" + "\" onmouseout=\"" + \
+                      self.mouseout + "\"/>\n"
         return string
+
 
 ###############################################################################
 
@@ -582,13 +589,13 @@ class Linepath:
     Here is an example of the path used to draw the regression line and 
     the line plot::
         
-    >>> print <path id="regLine2" d=" M.0,298.0 L139.0,298.0 L139.0,231.0 
+    \>>> print <path id="regLine2" d=" M.0,298.0 L139.0,298.0 L139.0,231.0
     ... L185.0,233.0 L224.0,210.0 L260.0,242.0 L277.0,287.0 L278.0,208.0 
     ... L319.0,275.0 L320.0,220.0 L335.0,218.0 L345.0,248.0 L345.0,298.0 
     ... " style="stroke:purple; stroke-width:1; fill:purple"/>
     """
-    
-    def __init__(self, xorigin, yorigin, idlpath, lpoints, fillcolor, 
+
+    def __init__(self, xorigin, yorigin, idlpath, lpoints, fillcolor,
                  strokecolor="black"):
         self.xorigin = xorigin
         """@ivar: is the X-coordenate of the initial point of the path 
@@ -609,12 +616,13 @@ class Linepath:
         self.strokecolor = strokecolor
         """@ivar: is the fill color of the plotted line
         @type: C{string}"""
-        
+
+
     def printsvg(self):
         """
         Returns a string with the code for a path as follows::
         
-        >>> print <path d="M (X-coordenate,Y-coordenate) L(X1-coordenate,
+        \>>> print <path d="M (X-coordenate,Y-coordenate) L(X1-coordenate,
         ...       Y1-coordenate)...L(Xn-coordenate,Yn-coordenate)"
         ...       style="stroke:...; stroke-width:..; fill:...."/> 
 
@@ -623,22 +631,23 @@ class Linepath:
         @return: SVG source code of the Linepath object.
         @rtype: C{string}
         """
-        
+
         string = "<path id=\"" + self.idlpath + "\" d=\" M" + \
-        str(float(self.lpoints[0][0]) + self.xorigin) + "," + \
-        str(float(self.lpoints[0][1]) + self.yorigin) + " "
+                 str(float(self.lpoints[0][0]) + self.xorigin) + "," + \
+                 str(float(self.lpoints[0][1]) + self.yorigin) + " "
         for i in range(len(self.lpoints)):
             if i == len(self.lpoints):
-                string += "L" + str(float(self.lpoints[i][0]) + self.xorigin)\
-                + "," + str(float(self.lpoints[i][1]) + self.yorigin)
-            else:    
-                string += "L" + str(float(self.lpoints[i][0]) + self.xorigin)\
-                + "," + str(float(self.lpoints[i][1]) + self.yorigin) + " "
-        string += "\" style=\"stroke:" + self.strokecolor\
-        + "; stroke-width:1; fill:" + self.fillcolor + "\"/>\n"  
+                string += "L" + str(float(self.lpoints[i][0]) + self.xorigin) \
+                          + "," + str(float(self.lpoints[i][1]) + self.yorigin)
+            else:
+                string += "L" + str(float(self.lpoints[i][0]) + self.xorigin) \
+                          + "," + str(float(self.lpoints[i][1]) + self.yorigin) + " "
+        string += "\" style=\"stroke:" + self.strokecolor \
+                  + "; stroke-width:1; fill:" + self.fillcolor + "\"/>\n"
         return string
 
-############################################################################### 
+
+###############################################################################
 
 
 class Gradient:
@@ -657,8 +666,8 @@ class Gradient:
         - The C{stop offset} tells the point along the line at which the color
           should be equal to the stop-color. It is expressed as a percentage
           from 0 to 100% or as a decimal value from 0 to 1.0.
-    """         
-        
+    """
+
     def __init__(self, idgradient, initcolor, endcolor, initoffset, endoffset):
         self.idgradient = idgradient
         """@ivar: is the identifier of gradient element in the SVG document 
@@ -677,7 +686,7 @@ class Gradient:
         """@ivar: is the final percentage from 0 to 100% of the stop offset 
         attribute  
         @type: C{number}"""
-    
+
     def printsvg(self):
         """
         Returns a string with the SVG code for the Gradient object 
@@ -687,14 +696,15 @@ class Gradient:
         """
         strgradient = "<defs>\n\
         <linearGradient id=\"" + self.idgradient + "\">\n\
-        <stop offset=\"" + str(self.initoffset) + "%\" style=\"stop-color: "\
-        + str(self.initcolor) + ";\"/>\n\
-        <stop offset=\"" + str(self.endoffset) + "%\" style=\"stop-color: "\
-        + str(self.endcolor) + ";\"/>\n\
+        <stop offset=\"" + str(self.initoffset) + "%\" style=\"stop-color: " \
+                      + str(self.initcolor) + ";\"/>\n\
+        <stop offset=\"" + str(self.endoffset) + "%\" style=\"stop-color: " \
+                      + str(self.endcolor) + ";\"/>\n\
         </linearGradient>\"\n\
         </defs>\n"
         return strgradient
-    
+
+
 ###############################################################################
 
 
@@ -725,8 +735,8 @@ class Filter:
     (opaqueness) channel of the graphic, specified as SourceAlpha, or the 
     output of a previous filtering primitive.
     """
-    
-    def __init__(self, idfilter, xfilter, yfilter, widthfilter, heightfilter, 
+
+    def __init__(self, idfilter, xfilter, yfilter, widthfilter, heightfilter,
                  filterunits="objectBoundingBox"):
         self.idfilter = idfilter
         """@ivar: is the identifier of filter element in the SVG document 
@@ -749,8 +759,8 @@ class Filter:
         wish to specify boundaries in user units, then set the attribute's 
         value to userSpaceOnUse. 
         @type: C{string}"""
-       
-    def printshadowfilter(self): 
+
+    def printshadowfilter(self):
         """
         Returns a string with the SVG code for the Shadow filter object.
         
@@ -768,14 +778,14 @@ class Filter:
         @rtype: C{string}
         """
         return "<feGaussianBlur in=\"SourceAlpha\" stdDeviation=\"4\"" + \
-        " result=\"blur\"/>\n\
+               " result=\"blur\"/>\n\
         <feOffset in=\"blur\" dx=\"4\" dy=\"4\" result=\"offsetBlur\"/>\n\
         <feMerge>\n\
         <feMergeNode in=\"offsetBlur\"/>\n\
         <feMergeNode in=\"SourceGraphic\"/>\n\
         </feMerge>\n"
 
-    def printlightingfilter(self): 
+    def printlightingfilter(self):
         """
         Returns a string with the SVG code for Lighting filter object.
         
@@ -794,7 +804,7 @@ class Filter:
         @rtype: C{string}
         
         """
-        
+
         return self.printshadowfilter() + "<feSpecularLighting in=\"blur\"\n\
         lighting-color=\"antiquewhite\"\n\
         surfaceScale=\"1\"\n\
@@ -818,7 +828,7 @@ class Filter:
         attribute equals matrix, you must set the value to a series of twenty
         numbers describing the transformation. 
         
-        >>> print values=
+        \>>> print values=
         ...         "0 0 0 red 0
         ...          0 0 0 green 0 
         ...          0 0 0 blue 0 
@@ -848,10 +858,10 @@ class Filter:
         @return: SVG source code for selected filter object.
         @rtype: C{string}
         """
-        cab = "<defs>\n<filter id=\"" + self.idfilter + "\" filterUnits=\""\
-        + self.filterunits + "\" x=\"" + str(self.xfilter) + "\" y=\""\
-        + str(self.yfilter) + "\" width=\"" + str(self.widthfilter)\
-        + "%\" height=\"" + str(self.heightfilter) + "%\">\n"
+        cab = "<defs>\n<filter id=\"" + self.idfilter + "\" filterUnits=\"" \
+              + self.filterunits + "\" x=\"" + str(self.xfilter) + "\" y=\"" \
+              + str(self.yfilter) + "\" width=\"" + str(self.widthfilter) \
+              + "%\" height=\"" + str(self.heightfilter) + "%\">\n"
         end = "</filter>\n</defs>\n"
         if self.idfilter == "shadow":
             return cab + self.printshadowfilter() + end
@@ -859,6 +869,7 @@ class Filter:
             return cab + self.printlightingfilter() + end
         elif self.idfilter == "Darkness":
             return cab + self.printdarknessfilter("0.5") + end
+
 
 ###############################################################################
 # Svgelements Objects: Inherited Classes 
@@ -883,32 +894,32 @@ class Verticaltext(Text):
         @param text: is a description of text element
         @type text: string
         """
-        Text.__init__(self, xorigin, yorigin, fontsize, text) 
+        Text.__init__(self, xorigin, yorigin, fontsize, text)
         self.widthverticaltext = width
         """@ivar: is the width of the object next to the C{Verticaltext} 
         object. This variable is used to align the text in the center of 
         the object
         @type: C{number} """
-  
-    def printsvg(self): 
+
+    def printsvg(self):
         """
         Returns a string with the SVG code for Verticaltext objec
         
         @return: SVG source code of the Verticaltext object.
         @rtype: C{string}
         """
-        string = "<text x=\"" + str(self.xorigintext) + "\" y=\""\
-        + str(self.yorigintext) + "\" transform=\"translate(" + \
-        str(int(self.widthverticaltext) / 2) + ",0)\" text-anchor=\"start\""\
-        + " writing-mode=\"tb\" font-size=\"" + \
-        str(self.fontsizetext) + "\" font-family=\"arial\"> " + str(self.text)\
-        + " </text>\n"
-        return string 
+        string = "<text x=\"" + str(self.xorigintext) + "\" y=\"" \
+                 + str(self.yorigintext) + "\" transform=\"translate(" + \
+                 str(int(self.widthverticaltext) / 2) + ",0)\" text-anchor=\"start\"" \
+                 + " writing-mode=\"tb\" font-size=\"" + \
+                 str(self.fontsizetext) + "\" font-family=\"arial\"> " + str(self.text) \
+                 + " </text>\n"
+        return string
 
-############################################################################### 
+    ###############################################################################
 
 
-class Linetext (Line, Text):
+class Linetext(Line, Text):
     """ 
        C{Linetext} is an intermediate inherited structure used to build the 
        linetext elements 
@@ -919,6 +930,7 @@ class Linetext (Line, Text):
            - C{Text object} used to write the value of the C{yinc} parameter
              next to the line.
     """
+
     def __init__(self, xorigin, yorigin, fontsize, text):
         """
         @param xorigin: is the initial X-coordenate
@@ -936,11 +948,11 @@ class Linetext (Line, Text):
         on that axis. 
         @type: C{number}  
         """
-        Line.__init__(self, int(xorigin) - int(self.offsetxlt), int(yorigin), 
+        Line.__init__(self, int(xorigin) - int(self.offsetxlt), int(yorigin),
                       xorigin, int(yorigin), "no")
-        Text.__init__(self, int(xorigin) - 4 * int(self.offsetxlt), 
+        Text.__init__(self, int(xorigin) - 4 * int(self.offsetxlt),
                       int(yorigin), fontsize, text)
-                     
+
     def printsvg(self):
         """
         Write the SVG code for the Linetext object
@@ -949,9 +961,10 @@ class Linetext (Line, Text):
         @rtype: C{string}"""
         return Line.printsvg(self) + Text.printsvg(self)
 
-############################################################################### 
 
-     
+###############################################################################
+
+
 class Linetextvertical(Line, Verticaltext):
     """ 
     Inherited class to draw a line element with vertical text. It's built
@@ -965,6 +978,7 @@ class Linetextvertical(Line, Verticaltext):
     than 25 units  
     
     """
+
     def __init__(self, xorigin, yorigin, fontsize, inc):
         """
         @param xorigin: is the initial X-coordenate
@@ -981,12 +995,12 @@ class Linetextvertical(Line, Verticaltext):
         """@ivar:is an incremental value that indicates the origin of each line 
         with text in both the abscissa and the ordinate axis.
         @type: C{number}"""
-        Line.__init__(self, xorigin, yorigin, xorigin, 
+        Line.__init__(self, xorigin, yorigin, xorigin,
                       yorigin + self.yoffsetltv, "no")
-        Verticaltext.__init__(self, xorigin, yorigin + 
-                              1.5 * int(self.yoffsetltv), 
+        Verticaltext.__init__(self, xorigin, yorigin +
+                              1.5 * int(self.yoffsetltv),
                               fontsize, str(self.incltv), 0)
-        
+
     def printsvg(self):
         """
         Write the SVG code for the Linetextvertical object
@@ -994,12 +1008,13 @@ class Linetextvertical(Line, Verticaltext):
         @return: SVG source code of the Linetextvertical object.
         @rtype: C{string}
         
-        """           
+        """
         return Line.printsvg(self) + Verticaltext.printsvg(self)
-    
+
+
 ###############################################################################
 
-       
+
 class Column(Rectangle):
     """
     Inherited class used to drawn a column object. This contains two 
@@ -1009,8 +1024,8 @@ class Column(Rectangle):
     We generally use this element in bar diagram and tree dimensions bar 
     diagram for creating text bars top and bottom
     """
-   
-    def __init__(self, xtext, ytext, height, width, xorigin, yorigin, 
+
+    def __init__(self, xtext, ytext, height, width, xorigin, yorigin,
                  fillcolor, idrect, vals):
         """
         @param height: is the height of the rectangle element
@@ -1026,7 +1041,7 @@ class Column(Rectangle):
         @param idrect: is the identifier of the rectangle in SVG document
         @type idrect: C{string}
         """
-        Rectangle.__init__(self, height, width, xorigin, yorigin, idrect, 
+        Rectangle.__init__(self, height, width, xorigin, yorigin, idrect,
                            fillcolor)
         self.xtextcolumn = xtext
         """@ivar: is a description of the text at the bottom of the rectangle.
@@ -1037,7 +1052,7 @@ class Column(Rectangle):
         self.vals = vals
         """@ivar: is true if the object needs extra top text, else False. 
         @type: C{boolean}"""
-    
+
     def printsvg(self):
         """
         Returns a string with the SVG code for Column object. If width of the 
@@ -1051,24 +1066,25 @@ class Column(Rectangle):
         fontsize = 13
         top = int(self.yoriginrect) - offset
         off = int(self.xoriginrect) + (int(self.widthrect) / 2 - offset)
-        bottom = int(self.yoriginrect) + (2 * offset) + int(self.heightrect)   
+        bottom = int(self.yoriginrect) + (2 * offset) + int(self.heightrect)
         yaxistext = Text(off, top, fontsize, self.ytextcolumn)
         if int(self.widthrect) > 25:
             xaxistext = Text(off, bottom, fontsize, self.xtextcolumn)
-        else: 
-            xaxistext = Verticaltext(off, bottom, fontsize, self.xtextcolumn, 
+        else:
+            xaxistext = Verticaltext(off, bottom, fontsize, self.xtextcolumn,
                                      self.widthrect)
         if self.vals:
-            string = Rectangle.printsvg(self) + yaxistext.printsvg()\
-            + xaxistext.printsvg()   
-        else: 
-            string = Rectangle.printsvg(self) + xaxistext.printsvg() 
+            string = Rectangle.printsvg(self) + yaxistext.printsvg() \
+                     + xaxistext.printsvg()
+        else:
+            string = Rectangle.printsvg(self) + xaxistext.printsvg()
         return string
+
 
 ###############################################################################
 
 
-class Hcolumn (Rectangle, Text):
+class Hcolumn(Rectangle, Text):
     """
     Inherited class used to drawn a horizontal column object. As in the kind 
     column, this object is be composed of two basic classes:
@@ -1076,8 +1092,8 @@ class Hcolumn (Rectangle, Text):
         - A Text class object
     We generally use this element to drawn the legends of the graphs
     """
-   
-    def __init__(self, hctext, xorigin, yorigin, fill, height, width, idgroup, 
+
+    def __init__(self, hctext, xorigin, yorigin, fill, height, width, idgroup,
                  idrect, idtext, mouseover="", mouseout="", filtered=False,
                  filterid="none"):
         """
@@ -1104,7 +1120,7 @@ class Hcolumn (Rectangle, Text):
         """
         Rectangle.__init__(self, height, width, xorigin, yorigin, idrect, fill,
                            filtered, filterid)
-        Text.__init__(self, xorigin + height + 10, (yorigin + height / 2) + 4, 
+        Text.__init__(self, xorigin + height + 10, (yorigin + height / 2) + 4,
                       10, hctext, "black", idtext)
         self.idgroup = idgroup
         """@ivar: is the identifier of the group, text and rectangle
@@ -1117,22 +1133,23 @@ class Hcolumn (Rectangle, Text):
         """@ivar: is a variable that indicates what action happens when you 
         move the mouse out this element
         @type: string"""
-            
+
     def printsvg(self):
         """
         Returns a string with the SVG code for Hcolumn object.             
         
         @return: SVG source code of the Hcolumn object.
         @rtype: C{string} 
-        """        
+        """
         string = "<g id=\"" + self.idgroup + "\" onmouseover=\"" + \
-        self.mouseover + "" + "\" onmouseout=\"" + self.mouseout + "\">\n" + \
-        Rectangle.printsvg(self) + Text.printsvg(self) + "</g>\n"
+                 self.mouseover + "" + "\" onmouseout=\"" + self.mouseout + "\">\n" + \
+                 Rectangle.printsvg(self) + Text.printsvg(self) + "</g>\n"
         return string
+
 
 ###############################################################################
 
- 
+
 class Rectangle3d(Rectangle, Polygon):
     """
     Inherited class used to drawn a rectangle object in three dimensions. 
@@ -1163,11 +1180,10 @@ class Rectangle3d(Rectangle, Polygon):
     ... Side polygon: [[xorigin+width,yorigin],[xorigin+width+offset3d,
     ...                yorigin-offset3d],[xorigin+width+offset3d,yorigin+
     ...                height-offset3d],[xoriginr+self.width,yorigin+height]] 
-    """   
-    
+    """
+
     def __init__(self, height, width, xorigin, yorigin, fillcolor, idrect,
                  filtered, filterid, offset):
-        
         """
         @param height: is the height of the rectangle element
         @type height: C{number}
@@ -1187,7 +1203,7 @@ class Rectangle3d(Rectangle, Polygon):
         @param filterid: is the filter identifier
         @type filterid: C{string}               
         """
-        
+
         self.offset3d = offset
         """@ivar: is the horizontal and vertical scrolling to simulate depth.
         @type: C{number}"""
@@ -1197,11 +1213,12 @@ class Rectangle3d(Rectangle, Polygon):
         Rectangle.__init__(self, height, width, xorigin, yorigin, idrect,
                            fillcolor)
         Polygon.__init__(self, [[xorigin, yorigin], [xorigin + self.offset3d,
-                        yorigin - self.offset3d], [xorigin + int(width) + 
-                        self.offset3d, yorigin - self.offset3d], [xorigin + 
-                        int(width), yorigin]], "polygonTop", fillcolor, 
-                        filtered, filterid)
-        
+                                                     yorigin - self.offset3d], [xorigin + int(width) +
+                                                                                self.offset3d, yorigin - self.offset3d],
+                                [xorigin +
+                                 int(width), yorigin]], "polygonTop", fillcolor,
+                         filtered, filterid)
+
     def printsvg(self):
         """
         Returns a string with the SVG code for Rectangle3d object. 
@@ -1210,21 +1227,26 @@ class Rectangle3d(Rectangle, Polygon):
         @rtype: C{string} 
         """
         lpointside = [[self.xoriginrect + int(self.widthrect),
-        self.yoriginrect], [self.xoriginrect + int(self.widthrect) +
-        self.offset3d, self.yoriginrect - self.offset3d], [self.xoriginrect +
-        int(self.widthrect) + self.offset3d, self.yoriginrect + 
-        int(self.heightrect) - self.offset3d], [self.xoriginrect + 
-        int(self.widthrect), self.yoriginrect + int(self.heightrect)]] 
-                  
-        polygonright = Polygon(lpointside, "polygonRight", self.fillcolor3d, 
+                       self.yoriginrect], [self.xoriginrect + int(self.widthrect) +
+                                           self.offset3d, self.yoriginrect - self.offset3d], [self.xoriginrect +
+                                                                                              int(
+                                                                                                  self.widthrect) + self.offset3d,
+                                                                                              self.yoriginrect +
+                                                                                              int(
+                                                                                                  self.heightrect) - self.offset3d],
+                      [self.xoriginrect +
+                       int(self.widthrect), self.yoriginrect + int(self.heightrect)]]
+
+        polygonright = Polygon(lpointside, "polygonRight", self.fillcolor3d,
                                self.polygonfiltered, self.polygonfilterid)
         string = Rectangle.printsvg(self) + Polygon.printsvg(self) + \
-                                            polygonright.printsvg()     
+                 polygonright.printsvg()
         return string
-    
+
+
 ###############################################################################
 
-   
+
 class Column3d(Rectangle3d):
     """
         Inherited class used to drawn a column object in three dimensions. 
@@ -1233,7 +1255,8 @@ class Column3d(Rectangle3d):
            - A three dimensions Rectangle object
            - Two text object
     """
-    def __init__(self, xtext, ytext, height, width, xorigin, yorigin, 
+
+    def __init__(self, xtext, ytext, height, width, xorigin, yorigin,
                  fillcolor, idrect, filtered, filterid, offset, vals):
         """
         @param height: is the height of the 3d rectangle element
@@ -1261,7 +1284,7 @@ class Column3d(Rectangle3d):
         self.vals = vals
         """@ivar: is true if the object needs extra top text, else False. 
         @type: C{boolean}"""
-     
+
     def printsvg(self):
         """
         Returns a string with the SVG code for 3d Column object. If width of 
@@ -1275,26 +1298,25 @@ class Column3d(Rectangle3d):
         top3d = int(self.yoriginrect) - self.offset3d
         xoffset3d = int(self.xoriginrect) + (int(self.widthrect) / 2)
         bottom3d = int(self.yoriginrect) + (1.5 * self.offset3d) + \
-        int(self.heightrect)
+                   int(self.heightrect)
         toptext = Text(xoffset3d, top3d, fontsize, self.ytextc3d)
         if int(self.widthrect) <= 25:
-            bottomtext = Verticaltext(self.xoriginrect, bottom3d, fontsize,
-                                       self.xtextc3d, self.widthrect)
-        else:         
-            bottomtext = Text(self.xoriginrect, bottom3d, fontsize, 
-                               self.xtextc3d)
-        if self.vals:
-            string = Rectangle3d.printsvg(self) + toptext.printsvg() + \
-            bottomtext.printsvg()
+            bottomtext = Verticaltext(self.xoriginrect, bottom3d, fontsize, self.xtextc3d, self.widthrect)
         else:
-            string = Rectangle3d.printsvg(self) + bottomtext.printsvg()      
-        return string  
+            bottomtext = Text(self.xoriginrect, bottom3d, fontsize, self.xtextc3d)
+        if self.vals:
+            string = Rectangle3d.printsvg(self) + toptext.printsvg() + bottomtext.printsvg()
+        else:
+            string = Rectangle3d.printsvg(self) + bottomtext.printsvg()
+        return string
 
-###############################################################################
-# Svgelements Objects: Graphics Classes 
+    ###############################################################################
+
+
+# Svgelements Objects: Graphics Classes
 ###############################################################################
 
- 
+
 class Piechart:
     """
     
@@ -1342,7 +1364,7 @@ class Piechart:
         - The first method, animation, is movement that is controlled by the 
         author. 
     
-    >>> <rect x="10" y="10" width="200" height="20" stroke="black" fill="none">
+    \>>> <rect x="10" y="10" width="200" height="20" stroke="black" fill="none">
     ... <animate attributeName="width" attributeType="XML" from="200" to="20"
     ... begin="0s" dur="5s" fill="freeze" />
     ... </rect>
@@ -1350,7 +1372,7 @@ class Piechart:
         - The second method, scripting, lets the user viewing the graphic 
         interact with and modify the image. 
           
-    >>>    <script type="text/ecmascript">
+    \>>>    <script type="text/ecmascript">
     ...    <![CDATA[
     ...    function enlarge_circle(evt){
     ...        var circle = evt.getTarget();
@@ -1378,8 +1400,8 @@ class Piechart:
     the attribute C{"transform"} to grow the object to a C{scale factor} of 
     1,5. Also while the program grows the pie slices or rectangles legend 
     applies a gradient on each sector of the chart.
-    """  
-        
+    """
+
     def __init__(self, xorigin, yorigin, radius, listvalues, values, labels,
                  colorfld, legend, animate, filtered, title, strokewidth=0):
         self.xorigin = xorigin
@@ -1394,7 +1416,7 @@ class Piechart:
         self.strokewidth = strokewidth
         """@ivar: is the width of the outer circle of the pie chart. 
         @type: C{number}"""
-        #{Input Data
+        # {Input Data
         self.listvalues = listvalues
         """@ivar: is the list of input data
         @type: C{list of values}"""
@@ -1410,22 +1432,22 @@ class Piechart:
         """@ivar: Identifies the data field that will hold colors for the pie
         slices.
         @type: C{number}"""
-        #}
+        # }
         self.title = title
         """@ivar: Specify pie title
         @type: C{string}"""
         self.legend = legend
         """@ivar: If is specified controls the placement of the legend
         @type: C{boolean}"""
-        #{Effects        
+        # {Effects
         self.animate = animate
         """@ivar: If is specified the pie chart contains animations
-        @type: C{boolean}"""            
-        self.filtered = filtered 
+        @type: C{boolean}"""
+        self.filtered = filtered
         """@ivar: If is specified some filter will be applied to the pie chart.
         @type: C{boolean}"""
-        #}
-        #{Values and Radian Control
+        # }
+        # {Values and Radian Control
         self.sumvalues = 0
         """@ivar: This variable stores the total sum of input values
         @type: C{number}"""
@@ -1434,9 +1456,9 @@ class Piechart:
         @type: C{list}"""
         self.initianradian = 0
         """@ivar: is the initial radian from which draw each pie chart sector
-        @type: C{float number}"""       
-        #}
-        #{Control position
+        @type: C{float number}"""
+        # }
+        # {Control position
         self.xradius = self.xorigin + self.radius
         """@ivar: is the X-coordenate of the center of the circle 
         @type: C{number}"""
@@ -1446,8 +1468,8 @@ class Piechart:
         self.pos = 0
         """@ivar: is the position of the sector in the pie chart
         @type: C{number}"""
-        #}
-        #{Legend
+        # }
+        # {Legend
         self.xtranslatefactor = 75
         """@ivar: is the translation in X axis suffered during animation legend
         @type: C{number}"""
@@ -1465,10 +1487,10 @@ class Piechart:
         """@ivar: is the initial coordinate in the Y axis of each rectangle of
         the legens
         @type: C{number}"""
-        #}
+        # }
         self.totalsum()
-        self.valuestoradians()    
- 
+        self.valuestoradians()
+
     def totalsum(self):
         """
         Returns the sum of the column of data file specified by the parameter
@@ -1482,7 +1504,7 @@ class Piechart:
         for value in self.listvalues[int(self.values) - 1]:
             self.sumvalues += int(value)
         return self.sumvalues
-    
+
     def valuestoradians(self):
         """
         Returns the values of the column of data file specified by the 
@@ -1491,7 +1513,7 @@ class Piechart:
         To achieve this, multiply each value in the list for two pi and divide
         by the sum of values
         
-        >>>                listValues[value]*2*pi
+        \t>>>                listValues[value]*2*pi
         ... radianValue = --------------------------
         ...                    sumValues
         
@@ -1500,12 +1522,12 @@ class Piechart:
         @rtype: C{list of float number}
         
         """
-        self.radianvalues = [(int(value) * 2 * pi) / self.sumvalues for value 
-                             in self.listvalues[int(self.values) - 1]]  
-        return self.radianvalues     
- 
+        self.radianvalues = [(int(value) * 2 * pi) / self.sumvalues for value
+                             in self.listvalues[int(self.values) - 1]]
+        return self.radianvalues
+
     def getanimationscript(self):
-        
+
         """
         Returns the JavaScript code that runs when an event occurs.
         
@@ -1515,7 +1537,7 @@ class Piechart:
             - B{I{Function animationOn(id):}}This function is activated 
               when you put the mouse on the object caller:
               
-              >>> function animationOn(id){
+              \t>>> function animationOn(id){
               ...    timevalue = - timerincrement;  [1]
               ...    pie = document.getElementById(id);
               ...    legendrect = document.getElementById(id+'rect');
@@ -1536,7 +1558,7 @@ class Piechart:
                     for generating the animation of the selected sector of
                     pie chart.
                          
-                       >>> function scaleIn() {
+                       \t>>> function scaleIn() {
                        ...    timevalue = timevalue + timerincrement;
                        ...    if (timevalue > maxtime)    [1]
                        ...     return;
@@ -1565,7 +1587,7 @@ class Piechart:
                     generate the animation in the legend for the selected 
                     sector.
                     
-                        >>> function legendscaleIn(){
+                        \t>>> function legendscaleIn(){
                         ...    xlegendscalefactor=1.5;    [1]
                         ...    xlegendtranslatefactor = 
                         ...    (( - xlegendscalefactor * 375) + 370) / 
@@ -1599,7 +1621,7 @@ class Piechart:
                 - B{I{function MouseOut():}} Restores the initial values prior
                   to the animation:
                 
-                        >>> function mouseOut() {
+                        \t>>> function mouseOut() {
                         ...    timevalue = maxtime;
                         ...    pie.setAttribute("transform", "scale(1)");
                         ...    pie.setAttribute("fill", initcolor);
@@ -1619,7 +1641,7 @@ class Piechart:
         @rtype: C{string}      
             
         """
-        
+
         return "  <script type=\"text/javascript\">\n\
        <![CDATA[\n\
        var timerincrement = 100;\n\
@@ -1646,26 +1668,26 @@ class Piechart:
             if (timevalue > maxtime)\n\
                 return;\n\
             scalefactor = 1 + timevalue / (2 * maxtime);\n\
-            xtranslatefactor = (( - scalefactor * " + str(float(self.xradius))\
-            + ") + " + str(float(self.xradius)) + ")/scalefactor;\n\
-            ytranslatefactor = (( - scalefactor * " + str(float(self.yradius))\
-            + ")+" + str(float(self.yradius)) + ")/scalefactor;\n\
-            pie.setAttribute(\"transform\", \"scale(\"+scalefactor+\") "\
-            "translate(\" + xtranslatefactor+\", \" + ytranslatefactor + "\
-            "\")\");\n\
+            xtranslatefactor = (( - scalefactor * " + str(float(self.xradius)) \
+               + ") + " + str(float(self.xradius)) + ")/scalefactor;\n\
+            ytranslatefactor = (( - scalefactor * " + str(float(self.yradius)) \
+               + ")+" + str(float(self.yradius)) + ")/scalefactor;\n\
+            pie.setAttribute(\"transform\", \"scale(\"+scalefactor+\") " \
+                                                   "translate(\" + xtranslatefactor+\", \" + ytranslatefactor + " \
+                                                   "\")\");\n\
             setTimeout(\"scaleIn()\", timerincrement);\n\
         }\n\
         function legendscaleIn(){\n\
             xlegendscalefactor = 1.5;\n\
             xlegendtranslatefactor = (( - xlegendscalefactor * " + \
-            str(self.xradius + self.xorigin + self.xtranslatefactor) + ") +" \
-            + str(self.xradius + self.xorigin + self.xtranslatefactor - \
-                self.pielegendsize / 4) + ") / xlegendscalefactor;\n\
+               str(self.xradius + self.xorigin + self.xtranslatefactor) + ") +" \
+               + str(self.xradius + self.xorigin + self.xtranslatefactor - \
+                     self.pielegendsize / 4) + ") / xlegendscalefactor;\n\
             legendrect.setAttribute(\"rx\", \"5\");\n\
             legendrect.setAttribute(\"ry\", \"5\");\n\
-            legendrect.setAttribute(\"transform\", \"scale(\" + "\
-            "xlegendscalefactor+\",\" + 1 + \") translate(\" + "\
-            "xlegendtranslatefactor+\", \" + 0 + \")\");\n\
+            legendrect.setAttribute(\"transform\", \"scale(\" + " \
+                                               "xlegendscalefactor+\",\" + 1 + \") translate(\" + " \
+                                               "xlegendtranslatefactor+\", \" + 0 + \")\");\n\
             legendtext.setAttribute(\"font-weight\", \"bold\");\n\
             legendtext.setAttribute(\"stroke\",initcolor);\n\
         }\n\
@@ -1686,7 +1708,7 @@ class Piechart:
         }\n\
        ]]>\n\
       </script>\n\n"
-    
+
     def printsvg(self):
         """Returns a string with SVG code for pie chart.
              
@@ -1714,7 +1736,7 @@ class Piechart:
                 - The initian radian be continuously updated so that each 
                   sector is in the correct position. B{[4]}  
                      
-                >>> for value in listradianvalues:        
+                \>>> for value in listradianvalues:
                 ... ...
                 ...    if (initianradian + radianvalues[pos] / 2 > 
                 ...    (3 * pi / 4))
@@ -1752,7 +1774,7 @@ class Piechart:
 
             2. The B{I{Legend:}} Is composed of many elements Hcolumn, 
             as input values have. 
-                >>> for value in radianValues:
+                \>>> for value in radianValues:
                 ... ... 
                 ...    if legend:
                 ...       if animate:
@@ -1779,7 +1801,7 @@ class Piechart:
               and a dark filter with the ID "shadow" in the outer circle
               to give a sense of depth
               
-              >>> shadowfilter = Filter("shadow", 0, 0, 120, 120, 
+              \>>> shadowfilter = Filter("shadow", 0, 0, 120, 120,
               ...                       "userSpaceOnUse")
               ... lightingfilter = Filter("lighting", 0, 0, 120, 120)
               ... ...
@@ -1795,108 +1817,108 @@ class Piechart:
         
         """
         try:
-            #Filter Instances needed to build the optical effects for the pie 
-            #chart
+            # Filter Instances needed to build the optical effects for the pie
+            # chart
             string = ""
             if (len(self.listvalues) != int(self.colorfld)):
                 try:
                     raise ValueError
                 except ValueError:
-                    print "Incorrect input data"\
-                    + "\nPlease check the number of columns in the input"\
-                    + "file" + "\nFor help use --help or -h"\
-                    + "\nPysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel "\
-                    + "Rodriguez \nYou can see the full documentation at URL:"\
-                    + " \"http://www.pysvg/orgfree.com\""                     
+                    print("Incorrect input data" \
+                          + "\nPlease check the number of columns in the input" \
+                          + "file" + "\nFor help use --help or -h" \
+                          + "\nPysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel " \
+                          + "Rodriguez \nYou can see the full documentation at URL:" \
+                          + " \"http://www.pysvg/orgfree.com\"")
                     sys.exit(2)
             shadowfilter = Filter("shadow", 0, 0, 120, 120, "userSpaceOnUse")
             lightingfilter = Filter("lighting", 0, 0, 120, 120)
-            circle = Circle(self.xradius, self.yradius, self.radius, 
+            circle = Circle(self.xradius, self.yradius, self.radius,
                             self.strokewidth, "black", "black", self.filtered,
                             "shadow")
-            #checking animation
+            # checking animation
             if self.animate:
-                string += self.getanimationscript()    
-            # Draw filters    
+                string += self.getanimationscript()
+                # Draw filters
             string += shadowfilter.printsvg() + lightingfilter.printsvg() + \
-            circle.printsvg()
+                      circle.printsvg()
             # Draw pie chart
             for value in self.radianvalues:
                 nameid = "pie" + str(self.pos)
                 mouseover = "animationOn('" + nameid + "');"
                 mouseout = "animationOff('" + nameid + "');"
                 sectorvalue = float(float(self.listvalues[int(self.values) - 1]
-                              [self.pos]) / float(self.sumvalues) * 100)
+                                          [self.pos]) / float(self.sumvalues) * 100)
                 sectorvalue = round(sectorvalue, 1)
                 if ((self.initianradian + value / 2 > (3 * pi / 4)) and
-                (self.initianradian + value / 2 < (5 * pi / 4))):
-                    percentage = Text(self.xradius + cos(self.initianradian + 
-                                     value / 2) * (self.radius * 1.4), 
-                                     self.yradius + sin(self.initianradian + 
-                                     value / 2) * (self.radius * 1.4), 10, 
-                                     str(sectorvalue) + "%", "black", nameid + 
-                                     "%text")
+                        (self.initianradian + value / 2 < (5 * pi / 4))):
+                    percentage = Text(self.xradius + cos(self.initianradian +
+                                                         value / 2) * (self.radius * 1.4),
+                                      self.yradius + sin(self.initianradian +
+                                                         value / 2) * (self.radius * 1.4), 10,
+                                      str(sectorvalue) + "%", "black", nameid +
+                                      "%text")
                 else:
-                    percentage = Text(self.xradius + cos(self.initianradian + 
-                                 value / 2) * (self.radius * 1.2), 
-                                 self.yradius + sin(self.initianradian + 
-                                 value / 2) * (self.radius * 1.2), 10, 
-                                 str(sectorvalue) + "%", "black", nameid +
-                                 "%text")
-                string += percentage.printsvg()          
+                    percentage = Text(self.xradius + cos(self.initianradian +
+                                                         value / 2) * (self.radius * 1.2),
+                                      self.yradius + sin(self.initianradian +
+                                                         value / 2) * (self.radius * 1.2), 10,
+                                      str(sectorvalue) + "%", "black", nameid +
+                                      "%text")
+                string += percentage.printsvg()
                 colorgrad = self.listvalues[int(self.colorfld) - 1][self.pos]
-                gradient = Gradient(nameid + "gradient", colorgrad, 
-                           "white", 0, 100)
-                string += "<!-- ***** PATH,GRADIENT,LEGEND " + str(self.pos)\
-                + " ***** -->\n" + gradient.printsvg()
+                gradient = Gradient(nameid + "gradient", colorgrad,
+                                    "white", 0, 100)
+                string += "<!-- ***** PATH,GRADIENT,LEGEND " + str(self.pos) \
+                          + " ***** -->\n" + gradient.printsvg()
                 if self.animate:
-                    piesector = Path(self.xradius, self.yradius, self.radius, 
-                                self.listvalues, self.colorfld, value, 
-                                self.pos, self.initianradian, nameid, 
-                                mouseover, mouseout, self.filtered, "lighting")
-                else: 
-                    piesector = Path(self.xradius, self.yradius, self.radius, 
-                                self.listvalues, self.colorfld, value, 
-                                self.pos, self.initianradian, nameid, "", "",
-                                self.filtered, "lighting")         
+                    piesector = Path(self.xradius, self.yradius, self.radius,
+                                     self.listvalues, self.colorfld, value,
+                                     self.pos, self.initianradian, nameid,
+                                     mouseover, mouseout, self.filtered, "lighting")
+                else:
+                    piesector = Path(self.xradius, self.yradius, self.radius,
+                                     self.listvalues, self.colorfld, value,
+                                     self.pos, self.initianradian, nameid, "", "",
+                                     self.filtered, "lighting")
                 self.initianradian += value
                 string += piesector.printsvg()
-                #Checking and drawning the legend
+                # Checking and drawning the legend
                 if self.legend:
                     if self.animate:
-                        pielegend = Hcolumn(self.listvalues[int(self.labels) 
-                                    - 1][self.pos], self.xradius + self.radius
-                                    + self.xtranslatefactor, self.yinitorigin,
-                                    self.listvalues[int(self.colorfld) - 1]
-                                    [self.pos], self.pielegendsize, 
-                                    self.pielegendsize, nameid + "legend",
-                                    nameid + "rect", nameid + "text", 
-                                    mouseover, mouseout, self.filtered,
-                                    "lighting")
-                    else: 
-                        pielegend = Hcolumn(self.listvalues[int(self.labels) 
-                                    - 1][self.pos], self.xradius + self.radius
-                                    + self.xtranslatefactor, self.yinitorigin,
-                                    self.listvalues[int(self.colorfld) - 1]
-                                    [self.pos], self.pielegendsize,
-                                    self.pielegendsize, nameid + "legend",
-                                    nameid + "rect", nameid + "text", "", "",
-                                    self.filtered, "lighting")
+                        pielegend = Hcolumn(self.listvalues[int(self.labels)
+                                                            - 1][self.pos], self.xradius + self.radius
+                                            + self.xtranslatefactor, self.yinitorigin,
+                                            self.listvalues[int(self.colorfld) - 1]
+                                            [self.pos], self.pielegendsize,
+                                            self.pielegendsize, nameid + "legend",
+                                            nameid + "rect", nameid + "text",
+                                            mouseover, mouseout, self.filtered,
+                                            "lighting")
+                    else:
+                        pielegend = Hcolumn(self.listvalues[int(self.labels)
+                                                            - 1][self.pos], self.xradius + self.radius
+                                            + self.xtranslatefactor, self.yinitorigin,
+                                            self.listvalues[int(self.colorfld) - 1]
+                                            [self.pos], self.pielegendsize,
+                                            self.pielegendsize, nameid + "legend",
+                                            nameid + "rect", nameid + "text", "", "",
+                                            self.filtered, "lighting")
                     string += pielegend.printsvg()
-                
+
                 self.pos += 1
                 self.yinitorigin += self.pielegendsize + self.yposlegend
             if self.title != "":
                 pietitle = Text(self.xradius, self.yorigin / 2, 14, self.title)
-                string += pietitle.printsvg()                
+                string += pietitle.printsvg()
             return string
         except IndexError:
-            print "The number of columns in data file must be equal to the "\
-            + "maximum value indicated by the parameters x, y, x2, y2\n"\
-            + "Please review the input data \nFor help use --help"
-            sys.exit(2)         
-    
-###############################################################################
+            print("The number of columns in data file must be equal to the " \
+                  + "maximum value indicated by the parameters x, y, x2, y2\n" \
+                  + "Please review the input data \nFor help use --help")
+            sys.exit(2)
+
+        ###############################################################################
 
 
 class Bardiagram:
@@ -1936,7 +1958,7 @@ class Bardiagram:
             - Second column represents the first values group (Y-axis data)
             - Third column shows the second values group (Y2-axis data) 
      
-             >>>   Group   Seats(2004)     Seats(1999)
+             \>>>   Group   Seats(2004)     Seats(1999)
              ...    EUL         666         49  
              ...    EFA         42          56
              ...    EDD         15          19
@@ -1945,26 +1967,26 @@ class Bardiagram:
              ...    UEN         27          36
              ...    Other       66          29
         
-    """ 
-   
-    def __init__(self, lval, xcolumn, ycolumn, ycolumn2, barwidth, xorigin, 
+    """
+
+    def __init__(self, lval, xcolumn, ycolumn, ycolumn2, barwidth, xorigin,
                  yorigin, delim, vals, yinc, yrange, ygrid, fillcolor,
                  fillcolor2, name, name2, title, legend):
-        #{Input Data
+        # {Input Data
         self.lval = lval
         """@ivar:Represents the list of input values
         @type:C{list of values}"""
         self.xcolumn = xcolumn
         """@ivar:Identifies the data field that will hold X component.
-        @type: C{number}""" 
+        @type: C{number}"""
         self.ycolumn = ycolumn
         """@ivar:Identifies the data field that will hold Y component.
-        @type:C{number}""" 
+        @type:C{number}"""
         self.ycolumn2 = ycolumn2
         """@ivar:Identifies the data field that will hold Y2 component.
-        @type:C{number}"""  
-        #}     
-        #{Position
+        @type:C{number}"""
+        # }
+        # {Position
         self.xorigin = xorigin
         """@ivar: Is the X initial coordinate of the graph. 
         @type:C{number}"""
@@ -1973,22 +1995,22 @@ class Bardiagram:
         @type:C{number}"""
         self.yinc = yinc
         """@ivar:Specify a numeric axis increment amount normally one value.
-        @type:C{number}"""        
+        @type:C{number}"""
         self.yrange = yrange
         """@ivar:Specify an explicit axis numeric range usually the minimum. 
         @type: C{number}"""
-        #}
-        #{Style
+        # }
+        # {Style
         self.barwidth = barwidth
         """@ivar: Specifies the width of the filled bars.
-        @type: C{number}"""       
+        @type: C{number}"""
         self.delim = delim
         """@ivar: Specifies the separation between bars or groups of bars. 
         @type: C{number}"""
         self.vals = vals
         """@ivar:If is specified, display numeric values near the top of each 
         bar. 
-        @type: C{number}"""        
+        @type: C{number}"""
         self.ygrid = ygrid
         """@ivar: If specified, grid lines will be drawn.mum 
         @type: C{yes or no}"""
@@ -1998,11 +2020,11 @@ class Bardiagram:
         self.fillcolor2 = fillcolor2
         """@ivar: Color of second group of bars
         @type: C{string}"""
-        #}     
-        #{title and Legend
+        # }
+        # {title and Legend
         self.legend = legend
         """@ivar: If is specified controls the placement of the legend
-        @type: C{boolean}"""        
+        @type: C{boolean}"""
         self.name = name
         """@ivar: Specifies legend label of first input data group
         @type: C{string}"""
@@ -2012,22 +2034,22 @@ class Bardiagram:
         self.title = title
         """@ivar: If is specified, a plot title to be centered at the top.
         @type: C{string}"""
-        #}
+        # }
         self.heightmaxbar = 0
         """@ivar: is an auxiliary variable that stores the height of the bar
         higher.
-        @type: C{number}"""        
-        
+        @type: C{number}"""
+
         try:
             self.setmaximumbars(lval)
         except IndexError:
-            print "The number of columns in data file must be equal to the"\
-            + "maximum value indicated by the parameters x, y, x2, y2\n"\
-            + "Please review the input data \nFor help use --help"\
-            + "\nPysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"\
-            + "\nYou can see the full documentation at URL:"\
-            + " \"http://www.pysvg/orgfree.com\""             
-            sys.exit(2) 
+            print("The number of columns in data file must be equal to the" \
+                  + "maximum value indicated by the parameters x, y, x2, y2\n" \
+                  + "Please review the input data \nFor help use --help" \
+                  + "\nPysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez" \
+                  + "\nYou can see the full documentation at URL:" \
+                  + " \"http://www.pysvg/orgfree.com\"")
+            sys.exit(2)
 
     def setmaximumbars(self, lval):
         """
@@ -2047,16 +2069,16 @@ class Bardiagram:
             if len(lval) == int(self.ycolumn2):
                 for num2 in range(len(lval[int(self.ycolumn2) - 1])):
                     if auxmaxbar < int(lval[int(self.ycolumn2) - 1][num2]):
-                        auxmaxbar = int(lval[int(self.ycolumn2) - 1][num2])  
+                        auxmaxbar = int(lval[int(self.ycolumn2) - 1][num2])
                 if self.heightmaxbar < auxmaxbar:
-                    self.heightmaxbar = auxmaxbar         
-            return self.heightmaxbar 
+                    self.heightmaxbar = auxmaxbar
+            return self.heightmaxbar
         except ValueError:
-            print "The input values must be numeric, can not be strings:"\
-            + "\nPysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"\
-            + "\nYou can see the full documentation at URL:"\
-            + " \"http://www.pysvg/orgfree.com\""             
-            sys.exit(2)  
+            print("The input values must be numeric, can not be strings:" \
+                  + "\nPysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez" \
+                  + "\nYou can see the full documentation at URL:" \
+                  + " \"http://www.pysvg/orgfree.com\"")
+            sys.exit(2)
 
     def printsvg(self):
         """
@@ -2068,7 +2090,7 @@ class Bardiagram:
                   the x-axis to know what will be the final x-axis coordinate.
                    
                   
-                      >>> numbars = length(lval[Y])+length(lval[Y2])
+                      \>>> numbars = length(lval[Y])+length(lval[Y2])
                       ... endbars = xorigin+(delim*numbars)+(barwidth*numbars)
                       
                 - Then draw the vertical line corresponding to the vertical 
@@ -2078,7 +2100,7 @@ class Bardiagram:
                   is specified, draw the lines of background with discontinuous
                   lines objects.
                     
-                    >>> counter=0
+                    \>>> counter=0
                     ... inc=yrange
                     ... while inc <= heightmaxbar: 
                     ...     linetext = Linetext(xorigin, yorigin + heightmaxbar
@@ -2099,11 +2121,11 @@ class Bardiagram:
                   value of separation between bars chosen by the user at 
                   the command line. In his way the graph is clearer.
             
-                        >>> xorigin = xorigin + delim 
+                        \>>> xorigin = xorigin + delim
                         
                 - Then you create a loop through the values of the bars: 
             
-                        >>> xorigin = xorigin + delim
+                        \>>> xorigin = xorigin + delim
                         ... for cont in range(length(lval[xcolumn])):
                         ...     xvalue = lval[xcolumn][cont]
                         ...     yvalue = lval[ycolumn][cont]
@@ -2138,14 +2160,14 @@ class Bardiagram:
                           the correct position. C{xvalue} and C{yvalue} are 
                           the input data of each bar. 
                           
-                          >>> C{column = Column(xvalue, yvalue, int(yvalue) - 
+                          \>>> C{column = Column(xvalue, yvalue, int(yvalue) -
                           yrange, barwidth, xorigin, origin, fillcolor, "colum" 
                           + str(cont), vals)}
                               
                         - If the Ycolumn2 component is specified its position 
                           in the horizontal axis will:
                         
-                              >>> xorigin = xorigin + delim + 2 * barwidth
+                              \>>> xorigin = xorigin + delim + 2 * barwidth
                         
                           
                           
@@ -2153,13 +2175,13 @@ class Bardiagram:
             text description of that element, centered at the top of the chart
             with fontsize = 14.
                 
-                    >>> if title != "":
+                    \>>> if title != "":
                     ...    bartitle = Text(endbars / 2, yorigin / 2, 14, title)
                                 
             4. B{I{Drawing the legend:}} This item consists of many horizontal
                columns as input values in the file data. 
 
-                    >>> if legend:
+                    \>>> if legend:
                     ...    NameLegend = Hcolumn(name, endbars + offsetlegend, 
                     ...    yorigin, fillcolor, vbarsizelegend, vbarsizelegend,
                     ...    "vbarlegend", "vbarect", "vbartext", "", "", 
@@ -2175,71 +2197,71 @@ class Bardiagram:
         vbarsizelegend = 15
         offsetlegend = 25
         try:
-            #drawing Y-axis lines 
+            # drawing Y-axis lines
             if len(self.lval) == int(self.ycolumn2):
-                numbars = (len(self.lval[int(self.ycolumn) - 1]) + 
+                numbars = (len(self.lval[int(self.ycolumn) - 1]) +
                            len(self.lval[int(self.ycolumn2) - 1]))
                 endbars = int(self.xorigin) + (int(self.delim) *
-                          (int(numbars) / 2)) + (int(self.barwidth) *
-                           int(numbars))
+                                               (int(numbars) / 2)) + (int(self.barwidth) *
+                                                                      int(numbars))
             else:
                 numbars = len(self.lval[int(self.ycolumn) - 1])
                 endbars = int(self.xorigin) + (int(self.delim) *
-                          (int(numbars))) + (int(self.barwidth) * int(numbars))
-            vertical_line = Line(self.xorigin, (self.yorigin + 
-                            self.heightmaxbar - int(self.yrange)),
-                            self.xorigin, self.yorigin)
+                                               (int(numbars))) + (int(self.barwidth) * int(numbars))
+            vertical_line = Line(self.xorigin, (self.yorigin +
+                                                self.heightmaxbar - int(self.yrange)),
+                                 self.xorigin, self.yorigin)
             string = vertical_line.printsvg()
             counter = 0
             inc = int(self.yrange)
             while inc <= (self.heightmaxbar):
-                linetext = Linetext(self.xorigin, self.yorigin + 
-                                    self.heightmaxbar - inc, fontsize, 
+                linetext = Linetext(self.xorigin, self.yorigin +
+                                    self.heightmaxbar - inc, fontsize,
                                     str(inc))
-                string += linetext.printsvg()                                
+                string += linetext.printsvg()
                 if self.ygrid == "yes":
-                    backgroundline = Line(self.xorigin, int(self.yorigin) + 
-                                          self.heightmaxbar - inc, endbars, 
+                    backgroundline = Line(self.xorigin, int(self.yorigin) +
+                                          self.heightmaxbar - inc, endbars,
                                           self.yorigin + self.heightmaxbar -
                                           inc, self.ygrid)
                     string += backgroundline.printsvg()
                 counter += 1
-                inc = int(self.yrange) + int(self.yinc) * counter      
-            #Draw the bars
-            self.xorigin = self.xorigin + int(self.delim) 
+                inc = int(self.yrange) + int(self.yinc) * counter
+                # Draw the bars
+            self.xorigin = self.xorigin + int(self.delim)
             for cont in range(len(self.lval[int(self.xcolumn) - 1])):
-                #colum text
+                # colum text
                 xvalue = self.lval[int(self.xcolumn) - 1][cont]
                 yvalue = self.lval[int(self.ycolumn) - 1][cont]
                 yoriginbar = self.yorigin + self.heightmaxbar - int(yvalue)
-                column = Column(xvalue, yvalue, int(yvalue) - int(self.yrange), 
-                                self.barwidth, self.xorigin, yoriginbar, 
-                                self.fillcolor, "colum1_" + str(cont), 
+                column = Column(xvalue, yvalue, int(yvalue) - int(self.yrange),
+                                self.barwidth, self.xorigin, yoriginbar,
+                                self.fillcolor, "colum1_" + str(cont),
                                 self.vals)
                 if len(self.lval) == int(self.ycolumn2):
                     yvalue2 = self.lval[int(self.ycolumn2) - 1][cont]
-                    yoriginbar2 = (self.yorigin + self.heightmaxbar - 
-                                  int(yvalue2))
-                    column2 = Column("", yvalue2, int(yvalue2) - 
+                    yoriginbar2 = (self.yorigin + self.heightmaxbar -
+                                   int(yvalue2))
+                    column2 = Column("", yvalue2, int(yvalue2) -
                                      int(self.yrange), self.barwidth,
                                      int(self.xorigin) + int(self.barwidth),
-                                     yoriginbar2, self.fillcolor2, "colum2_" + 
+                                     yoriginbar2, self.fillcolor2, "colum2_" +
                                      str(cont), self.vals)
                     string += column.printsvg() + column2.printsvg()
-                    self.xorigin = (self.xorigin + int(self.delim) + 
+                    self.xorigin = (self.xorigin + int(self.delim) +
                                     2 * int(self.barwidth))
                 else:
                     string += column.printsvg()
-                    self.xorigin = (self.xorigin + int(self.delim) + 
+                    self.xorigin = (self.xorigin + int(self.delim) +
                                     int(self.barwidth))
-            #Draw the title
+            # Draw the title
             if self.title != "":
                 bartitle = Text(endbars / 2, self.yorigin / 2, 14, self.title)
                 string += bartitle.printsvg()
-            #draw the legend
+            # draw the legend
             if self.legend:
-                namelegend1 = Hcolumn(self.name, endbars + offsetlegend, 
-                                      self.yorigin, self.fillcolor, 
+                namelegend1 = Hcolumn(self.name, endbars + offsetlegend,
+                                      self.yorigin, self.fillcolor,
                                       vbarsizelegend, vbarsizelegend,
                                       "vbarlegend1", "vbarect1", "vbartext1")
                 if len(self.lval) == int(self.ycolumn2):
@@ -2248,20 +2270,20 @@ class Bardiagram:
                                           self.fillcolor2, vbarsizelegend,
                                           vbarsizelegend, "vbarlegend1",
                                           "vbarrect2", "vbartext2")
-                    string += namelegend1.printsvg() + namelegend2.printsvg()   
+                    string += namelegend1.printsvg() + namelegend2.printsvg()
                 else:
                     string += namelegend1.printsvg()
             return string
         except IndexError:
-            print "The number of columns in data file must be equal to the"\
-            + " maximum value indicated by the parameters x, y, x2, y2\n"\
-            + "Please review the input data \nFor help use --help"\
-            + "\nPysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"\
-            + "\nYou can see the full documentation at URL:"\
-            + " \"http://www.pysvg/orgfree.com\""             
-            sys.exit(2) 
+            print("The number of columns in data file must be equal to the" \
+                  + " maximum value indicated by the parameters x, y, x2, y2\n" \
+                  + "Please review the input data \nFor help use --help" \
+                  + "\nPysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez" \
+                  + "\nYou can see the full documentation at URL:" \
+                  + " \"http://www.pysvg/orgfree.com\"")
+            sys.exit(2)
 
-###############################################################################
+        ###############################################################################
 
 
 class Bardiagram3d:
@@ -2279,7 +2301,7 @@ class Bardiagram3d:
     of it to produce the desired effect. We also modified the coordinate 
     axes, creating a new component to generate the Z-axis displacement.
     
-            >>>     y-axis
+            \>>>     y-axis
             ...        |  / 
             ...        | / z-axis
             ...        |/_____ x-axis
@@ -2290,7 +2312,7 @@ class Bardiagram3d:
     This time can only enter values for data set, thus not admitting 
     the Y2 component.
       
-        >>>   Group   Seats(2004)
+        \>>>   Group   Seats(2004)
         ...    EUL         366  
         ...    EFA         42
         ...    EDD         15
@@ -2302,23 +2324,23 @@ class Bardiagram3d:
     
     
         
-    """ 
-   
+    """
+
     def __init__(self, lval, xcolumn, ycolumn, barwidth, xorigin, yorigin,
                  delim, vals, yinc, yrange, ygrid, filtered, fillcolor, title,
                  legend, name):
-        #{Input Data
+        # {Input Data
         self.lval = lval
         """@ivar:Represents the list of input values
         @type:C{list of values}"""
         self.xcolumn = xcolumn
         """@ivar:Identifies the data field that will hold X component.
-        @type: C{number}""" 
+        @type: C{number}"""
         self.ycolumn = ycolumn
         """@ivar:Identifies the data field that will hold Y component.
-        @type:C{number}""" 
-        #}     
-        #{Position
+        @type:C{number}"""
+        # }
+        # {Position
         self.xorigin = xorigin
         """@ivar: Is the X initial coordinate of the graph. 
         @type:C{number}"""
@@ -2327,59 +2349,59 @@ class Bardiagram3d:
         @type:C{number}"""
         self.yinc = yinc
         """@ivar:Specify a numeric axis increment amount normally one value.
-        @type:C{number}"""        
+        @type:C{number}"""
         self.yrange = yrange
         """@ivar:Specify an explicit axis numeric range usually the minimum. 
         @type: C{number}"""
-        #}
-        #{Style
+        # }
+        # {Style
         self.barwidth = barwidth
         """@ivar: Specifies the width of the filled bars.
-        @type: C{number}"""       
+        @type: C{number}"""
         self.delim = delim
         """@ivar: Specifies the separation between bars or groups of bars. 
         @type: C{number}"""
         self.vals = vals
         """@ivar:If is specified, display numeric values near the top of 
         each bar. 
-        @type: C{number}"""        
+        @type: C{number}"""
         self.ygrid = ygrid
         """@ivar: If specified, grid lines will be drawn.mum 
         @type: C{yes or no}"""
         self.fillcolor = fillcolor
         """@ivar: Color of first group of bars
         @type: C{string}"""
-        #}
-        #{Effects        
+        # }
+        # {Effects
         self.filtered = filtered
         """@ivar: If is specified some filter will be applied to the bar chart.
-        @type: C{boolean}"""        
+        @type: C{boolean}"""
 
-        #{title and Legend
+        # {title and Legend
         self.legend = legend
         """@ivar: If is specified controls the placement of the legend
-        @type: C{boolean}"""        
+        @type: C{boolean}"""
         self.name = name
         """@ivar: Specifies legend label of first input data group
         @type: C{string}"""
         self.title = title
         """@ivar: If is specified, a plot title to be centered at the top.
         @type: C{string}"""
-        #}
+        # }
         self.heightmaxbar = 0
         """@ivar: is an auxiliary variable that stores the height of the bar
         higher.
-        @type: C{number}""" 
-        
+        @type: C{number}"""
+
         try:
             self.setmaximumbars(lval[int(ycolumn) - 1])
         except IndexError:
-            print "The number of values of the parameters x, y or y2 must"\
-            + " be equal, please review the input data"\
-            + "\nFor help use --help"\
-            + "\nPysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"\
-            + "\nYou can see the full documentation at URL:"\
-            + " \"http://www.pysvg/orgfree.com\""                    
+            print("The number of values of the parameters x, y or y2 must" \
+                  + " be equal, please review the input data" \
+                  + "\nFor help use --help" \
+                  + "\nPysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez" \
+                  + "\nYou can see the full documentation at URL:" \
+                  + " \"http://www.pysvg/orgfree.com\"")
             sys.exit(2)
 
     def setmaximumbars(self, lval):
@@ -2398,16 +2420,16 @@ class Bardiagram3d:
             for num in range(len(lval)):
                 if self.heightmaxbar < int(lval[num]):
                     self.heightmaxbar = int(lval[num])
-            return self.heightmaxbar  
+            return self.heightmaxbar
         except ValueError:
-            print "The input values must be numeric, can not be strings"\
-            + "\nPysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"\
-            + "\nYou can see the full documentation at URL:"\
-            + " \"http://www.pysvg/orgfree.com\""             
+            print("The input values must be numeric, can not be strings" \
+                  + "\nPysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez" \
+                  + "\nYou can see the full documentation at URL:" \
+                  + " \"http://www.pysvg/orgfree.com\"")
             sys.exit(2)
- 
+
     def printsvg(self):
-        
+
         """
         Returns SVG code for bar chart in three dimensions
         
@@ -2421,7 +2443,7 @@ class Bardiagram3d:
               This shows the horizontal and vertical scrolling to simulate 
               depth. 
               
-                >>> while inc <= heightmaxbar: 
+             \t>>> while inc <= heightmaxbar:
                 ...   linetext = Linetext(...) 
                 ...   ...   
                 ...   if ygrid == "yes":
@@ -2440,7 +2462,7 @@ class Bardiagram3d:
               filter of darkness in the side and top to produce the required
               effect. 
               
-                >>> rect_bottom3d = Rectangle3d (yinc / 2, endbars - xorigin,
+             \t>>> rect_bottom3d = Rectangle3d (yinc / 2, endbars - xorigin,
                 ...                 xorigin, yorigin + heightmaxbar - yrange,        
                 ...                 "grey", "rbottom", filtered, "Darkness",
                 ...                 offset)
@@ -2466,7 +2488,7 @@ class Bardiagram3d:
               
             - Finally, we will build the legend with the item horizontal column 
               as in the bar chart.
-                >>> if self.legend:
+            \t>>> if self.legend:
                 ...    legend3d = Hcolumn(name, endbars + 2 * offset,
                 ...               (yorigin + heightmaxbar) / 2, fillcolor, 
                 ...               heighwidthlegend, heighwidthlegend, 
@@ -2484,100 +2506,100 @@ class Bardiagram3d:
         offset = 15
         heighwidthlegend = 15
         try:
-            #Create the filter for rectangle3d element
+            # Create the filter for rectangle3d element
             darknessfilter = Filter("Darkness", 0, 0, 120, 120,
                                     "userSpaceOnUse")
             string = darknessfilter.printsvg()
-            #Draw the axis in three dimensions
+            # Draw the axis in three dimensions
             numbars = len(self.lval[0])
             endbars = int(self.xorigin) + (int(self.delim) * int(numbars)) + \
-            (int(self.barwidth) * int(numbars))     
-            vertical_line = Line(self.xorigin, self.yorigin, self.xorigin, 
+                      (int(self.barwidth) * int(numbars))
+            vertical_line = Line(self.xorigin, self.yorigin, self.xorigin,
                                  self.yorigin + self.heightmaxbar -
                                  int(self.yrange), "no")
             string += vertical_line.printsvg()
-            #Draw the number of the Y axis
+            # Draw the number of the Y axis
             counter = 0
             inc = int(self.yrange)
-            while inc <= self.heightmaxbar: 
-                linetext = Linetext(self.xorigin, self.yorigin + 
-                                    self.heightmaxbar - inc, fontsize, 
+            while inc <= self.heightmaxbar:
+                linetext = Linetext(self.xorigin, self.yorigin +
+                                    self.heightmaxbar - inc, fontsize,
                                     str(inc))
-                string += linetext.printsvg()                                
+                string += linetext.printsvg()
                 if self.ygrid == "yes":
                     backgroundline1 = Line(self.xorigin, int(self.yorigin) +
-                                    self.heightmaxbar - inc, self.xorigin
-                                    + offset, int(self.yorigin) + 
-                                    self.heightmaxbar - inc - offset,
-                                    self.ygrid)
-                    backgroundline2 = Line(self.xorigin + offset, 
-                                    int(self.yorigin) + self.heightmaxbar
-                                    - inc - offset, endbars + offset, 
-                                    int(self.yorigin) + self.heightmaxbar
-                                    - inc - offset, self.ygrid)
+                                           self.heightmaxbar - inc, self.xorigin
+                                           + offset, int(self.yorigin) +
+                                           self.heightmaxbar - inc - offset,
+                                           self.ygrid)
+                    backgroundline2 = Line(self.xorigin + offset,
+                                           int(self.yorigin) + self.heightmaxbar
+                                           - inc - offset, endbars + offset,
+                                           int(self.yorigin) + self.heightmaxbar
+                                           - inc - offset, self.ygrid)
                     string += backgroundline1.printsvg() + \
-                    backgroundline2.printsvg()                            
+                              backgroundline2.printsvg()
                 counter += 1
-                inc = int(self.yrange) + int(self.yinc) * counter            
-     
-            #draw filtered bottom rectangle 
-            rect_bottom3d = Rectangle3d(int(self.yinc) / 2, endbars - 
-                                        self.xorigin, self.xorigin, 
+                inc = int(self.yrange) + int(self.yinc) * counter
+
+                # draw filtered bottom rectangle
+            rect_bottom3d = Rectangle3d(int(self.yinc) / 2, endbars -
+                                        self.xorigin, self.xorigin,
                                         self.yorigin + self.heightmaxbar -
                                         int(self.yrange), "grey", "rbottom",
                                         self.filtered, "Darkness", offset)
             string += rect_bottom3d.printsvg()
-            #draw filtered bars in three dimensions                
-            self.xorigin = self.xorigin + int(self.delim) 
+            # draw filtered bars in three dimensions
+            self.xorigin = self.xorigin + int(self.delim)
             for cont in range(len(self.lval[int(self.xcolumn) - 1])):
                 xvalue = self.lval[int(self.xcolumn) - 1][cont]
                 yvalue = self.lval[int(self.ycolumn) - 1][cont]
                 yoriginbar = self.yorigin + self.heightmaxbar - int(yvalue)
                 if int(self.yrange) <= int(yvalue):
                     column3d = Column3d(xvalue, yvalue, int(yvalue) -
-                                        int(self.yrange), self.barwidth, 
-                                        self.xorigin, yoriginbar, 
+                                        int(self.yrange), self.barwidth,
+                                        self.xorigin, yoriginbar,
                                         self.fillcolor, "colum3d" + str(cont),
-                                        self.filtered, "Darkness", offset, 
+                                        self.filtered, "Darkness", offset,
                                         self.vals)
                     string += column3d.printsvg()
                 else:
                     try:
                         raise ValueError
                     except ValueError:
-                        print "Yrange value must be less than the minimum"\
-                        + "value of the input data" + "\npysvg 0.0.4-Nov2011"\
-                        + "\nCopyright (C) 2011 Isabel Rodriguez"\
-                        + "\nYou can see the full documentation at URL:"\
-                        + " \"http://www.pysvg/orgfree.com\""
+                        print("Yrange value must be less than the minimum" \
+                              + "value of the input data" + "\npysvg 0.0.4-Nov2011" \
+                              + "\nCopyright (C) 2011 Isabel Rodriguez" \
+                              + "\nYou can see the full documentation at URL:" \
+                              + " \"http://www.pysvg/orgfree.com\"")
                         sys.exit(2)
-                    
+
                 self.xorigin = self.xorigin + int(self.delim) + \
-                int(self.barwidth)
-            #Draw the title
+                               int(self.barwidth)
+            # Draw the title
             if self.title != "":
-                bar3dtitle = Text(endbars / 2, self.yorigin / 2, 14, 
+                bar3dtitle = Text(endbars / 2, self.yorigin / 2, 14,
                                   self.title)
-                string += bar3dtitle.printsvg() 
-            #Draw the legend        
+                string += bar3dtitle.printsvg()
+                # Draw the legend
             if self.legend:
                 legend3d = Hcolumn(self.name, endbars + 2 * offset,
-                                  (self.yorigin + self.heightmaxbar) / 2,
-                                  self.fillcolor, heighwidthlegend, 
-                                  heighwidthlegend, "vbar3dlegend", 
-                                  "vba3drect", "vbar3dtext")
-                string += legend3d.printsvg()      
+                                   (self.yorigin + self.heightmaxbar) / 2,
+                                   self.fillcolor, heighwidthlegend,
+                                   heighwidthlegend, "vbar3dlegend",
+                                   "vba3drect", "vbar3dtext")
+                string += legend3d.printsvg()
             return string
         except IndexError:
-            print "The number of columns in data file must be equal to the "\
-            + "maximum value indicated by the parameters x, y, x2, y2\n"\
-            + "Please review the input data \nFor help use --help"\
-            + "\npysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"\
-            + "\nYou can see the full documentation at URL:"\
-            + " \"http://www.pysvg/orgfree.com\""             
-            sys.exit(2) 
-            
-###############################################################################
+            print("The number of columns in data file must be equal to the " \
+                  + "maximum value indicated by the parameters x, y, x2, y2\n" \
+                  + "Please review the input data \nFor help use --help" \
+                  + "\npysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez" \
+                  + "\nYou can see the full documentation at URL:" \
+                  + " \"http://www.pysvg/orgfree.com\"")
+            sys.exit(2)
+
+        ###############################################################################
 
 
 class Scatterplot:
@@ -2617,7 +2639,7 @@ class Scatterplot:
         - If the pattern of dots slopes from lower left to upper right, it 
           suggests a positive correlation.
           
-              >>>       ./.     
+              \>>>       ./.
               ...   . . /.
               ...  ..  / .
               ...   . / .
@@ -2625,7 +2647,7 @@ class Scatterplot:
         - If the pattern of dots slopes from upper left to lower right, it
           suggests a negative correlation. 
           
-              >>>  ..\  .     
+              \>>>  ..\  .
               ...   . \ ..
               ...  .. .\ .
               ...   . . \.
@@ -2672,28 +2694,28 @@ class Scatterplot:
         -    B{b=(S{sigma}xy/(S{sigma}x*S{sigma}x))}: is the slope of the 
              regression line.
     """
-    
+
     def __init__(self, lval, xorigin, yorigin, xcolumn, ycolumn, xcolumn2,
                  ycolumn2, yinc, ptsize, ptsym, pt2sym, ptcolor,
                  pt2color, corr, xlabel, ylabel, name, name2, legend, title):
-        #{Input Data
+        # {Input Data
         self.lval = lval
         """@ivar:Represents the list of input values
         @type:C{list of values}"""
         self.xcolumn = xcolumn
         """@ivar:Identifies the data field that will hold X component.
         @type: C{number}"""
-        self.xcolumn2 = xcolumn2 
+        self.xcolumn2 = xcolumn2
         """@ivar:Identifies the data field that will hold X2 component.
-        @type: C{number}"""        
+        @type: C{number}"""
         self.ycolumn = ycolumn
         """@ivar:Identifies the data field that will hold Y component.
-        @type:C{number}""" 
+        @type:C{number}"""
         self.ycolumn2 = ycolumn2
         """@ivar:Identifies the data field that will hold Y2 component.
-        @type:C{number}"""  
-        #}     
-        #{Position
+        @type:C{number}"""
+        # }
+        # {Position
         self.xorigin = xorigin
         """@ivar: Is the X initial coordinate of the graph. 
         @type:C{number}"""
@@ -2702,9 +2724,9 @@ class Scatterplot:
         @type:C{number}"""
         self.yinc = yinc
         """@ivar: It is the increase experienced by the numbering of the axes
-        @type:C{number}"""        
-        #}
-        #{Style
+        @type:C{number}"""
+        # }
+        # {Style
         self.ptcolor = ptcolor
         """@ivar: Color of first group of plots
         @type: C{string}"""
@@ -2713,26 +2735,26 @@ class Scatterplot:
         @type: C{string}"""
         self.ptsize = ptsize
         """@ivar: Controls the size of data point 
-        @type: C{number}"""        
+        @type: C{number}"""
         self.ptsym = ptsym
         """@ivar: Controls the shape of the first group data point  
         @type: C{circle or square or triangle or diamond or invertedtriangle}
-        """          
+        """
         self.pt2sym = pt2sym
         """@ivar: Controls the shape of the first group data point  
         @type: C{circle or square or triangle or diamond or invertedtriangle}
-        """          
+        """
         self.xlabel = xlabel
         """@ivar: Specifies x-axis label 
-        @type: C{string}"""         
-        self.ylabel = ylabel  
+        @type: C{string}"""
+        self.ylabel = ylabel
         """@ivar: Specifies y-axis label 
         @type: C{string}"""
-        #}       
-        #{title and Legend
+        # }
+        # {title and Legend
         self.legend = legend
         """@ivar: If is specified controls the placement of the legend
-        @type: C{boolean}"""        
+        @type: C{boolean}"""
         self.name = name
         """@ivar: Specifies legend label of first input data group
         @type: C{string}"""
@@ -2742,11 +2764,11 @@ class Scatterplot:
         self.title = title
         """@ivar: If is specified, a plot title to be centered at the top.
         @type: C{string}"""
-        #}
+        # }
         self.corr = corr
         """@ivar: Compute correlation and display regression line.
         @type: C{boolean}"""
-    
+
     def getaverage(self, lval):
         """
         Auxiliary function that returns the average of a list of
@@ -2760,7 +2782,7 @@ class Scatterplot:
         """
         sumlval = 0
         for num in range(len(lval)):
-            sumlval += int(lval[num])   
+            sumlval += int(lval[num])
         return int(sumlval / len(lval))
 
     def getvariance(self, lval):
@@ -2782,9 +2804,9 @@ class Scatterplot:
         var = 0
         for num in range(len(lval)):
             var += (int(lval[num]) - int(self.getaverage(lval))) \
-            * (int(lval[num]) - int(self.getaverage(lval)))
-        return int(var / len(lval)) 
-    
+                   * (int(lval[num]) - int(self.getaverage(lval)))
+        return int(var / len(lval))
+
     def getcovariance(self, lval):
         """
         Auxiliary function that returns the covariance of a list of
@@ -2800,19 +2822,19 @@ class Scatterplot:
         
         @return: The covariance of a list of value
         @rtype: C{number}                 
-        """        
+        """
         covar = 0
         for num in range(len(lval[int(self.xcolumn) - 1])):
-            #covar+=(x-promedioX)*(y-promedioY)
-            covar += (int(lval[int(self.xcolumn) - 1][num]) - 
+            # covar+=(x-promedioX)*(y-promedioY)
+            covar += (int(lval[int(self.xcolumn) - 1][num]) -
                       int(self.getaverage(lval[int(self.xcolumn) - 1]))) * \
-                      (int(lval[int(self.ycolumn) - 1][num]) -
-                       int(self.getaverage(lval[int(self.ycolumn) - 1])))    
+                     (int(lval[int(self.ycolumn) - 1][num]) -
+                      int(self.getaverage(lval[int(self.ycolumn) - 1])))
         return int(covar / len(lval[int(self.xcolumn) - 1]))
-   
-   #dibuja recta de regression 
+
+    # dibuja recta de regression
     def getregressionline(self, lval):
-        
+
         """
         Returns the regression line for a given set of data. To get this list
         of values using the above functions, variance, average and covariance.
@@ -2828,19 +2850,19 @@ class Scatterplot:
         @return: The regression line for input list
         @rtype: C{list}  
         """
-        
+
         reglist = []
         bcomponent = float(self.getcovariance(lval)) / \
-        float(self.getvariance(lval[int(self.xcolumn) - 1]))
-        
+                     float(self.getvariance(lval[int(self.xcolumn) - 1]))
+
         for cont in range(len(lval[int(self.xcolumn) - 1])):
             ylist = bcomponent * (float(lval[int(self.xcolumn) - 1][cont]) - \
-                    float(self.getaverage(lval[int(self.xcolumn) - 1]))) + \
+                                  float(self.getaverage(lval[int(self.xcolumn) - 1]))) + \
                     self.getaverage(lval[int(self.ycolumn) - 1])
 
             reglist.append([float(lval[int(self.xcolumn) - 1][cont]), ylist])
         return reglist
-    
+
     def getmaxpoint(self, lval):
         """
         Returns the maximum value of a list of data input passed as parameter.
@@ -2851,7 +2873,7 @@ class Scatterplot:
         @return: Maximum value of the list
         @rtype: C{number}         
                 
-        """  
+        """
         try:
             maxpoint = int(lval[0])
             for num in range(len(lval)):
@@ -2859,12 +2881,12 @@ class Scatterplot:
                     maxpoint = int(lval[num])
             return maxpoint
         except ValueError:
-            print "The input values must be numeric, can not be strings"\
-            + "\npysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"\
-            + "\nYou can see the full documentation at URL:"\
-            + " \"http://www.pysvg/orgfree.com\""             
-            sys.exit(2) 
-    
+            print("The input values must be numeric, can not be strings" \
+                  + "\npysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez" \
+                  + "\nYou can see the full documentation at URL:" \
+                  + " \"http://www.pysvg/orgfree.com\"")
+            sys.exit(2)
+
     def getmaxaxis(self, lval):
         """
         Returns the maximum value of a two list of data input.
@@ -2875,7 +2897,7 @@ class Scatterplot:
         @return: Maximum xvalue and yvalue of the axis
         @rtype: C{number}         
                 
-        """         
+        """
         ymaxaxis = self.getmaxpoint(lval[int(self.ycolumn) - 1])
         xmaxaxis = self.getmaxpoint(lval[int(self.xcolumn) - 1])
         if (len(lval) > int(self.xcolumn2)):
@@ -2887,8 +2909,8 @@ class Scatterplot:
             if xmaxpoint2 > xmaxaxis:
                 xmaxaxis = xmaxpoint2
         return xmaxaxis, ymaxaxis
-        
-    #PARA TRANSFORMAR LA LISTA DE REGRESION A LAS COORDENADAS NORMALES
+
+    # PARA TRANSFORMAR LA LISTA DE REGRESION A LAS COORDENADAS NORMALES
     def regtocoordenates(self, lval, ymaxpoint):
         """
         Function that transforms the coordinates of the regression line in 
@@ -2910,11 +2932,11 @@ class Scatterplot:
         @return: List of SVG coordenates
         @rtype: C{number}
         """
-        newlpoints = []  
+        newlpoints = []
         for num in range(len(lval)):
             xcoordenate = float(lval[num][int(self.xcolumn) - 1])
             ycoordenate = float(ymaxpoint) \
-            - float(lval[num][int(self.ycolumn) - 1])
+                          - float(lval[num][int(self.ycolumn) - 1])
             newlpoints.append([xcoordenate, ycoordenate])
         return newlpoints
 
@@ -2936,8 +2958,8 @@ class Scatterplot:
         @return: A string with SVG code of eath point.
         @rtype: C{string}
         
-        """     
-        if sym == "circle":                
+        """
+        if sym == "circle":
             shapepoint = Circle(str(xpoint), str(ypoint), size / 2, 1, "black",
                                 color)
         elif sym == "square":
@@ -2945,24 +2967,24 @@ class Scatterplot:
                                    str(ypoint - size / 2), sym, color)
         elif sym == "triangle":
             trianglepoints = [[xpoint, ypoint - size / 2], [xpoint - size / 2,
-                               ypoint + size / 2], [xpoint + size / 2, 
-                               ypoint + size / 2]]
+                                                            ypoint + size / 2], [xpoint + size / 2,
+                                                                                 ypoint + size / 2]]
             shapepoint = Polygon(trianglepoints, sym, color)
-        elif sym == "invertedtriangle":  
+        elif sym == "invertedtriangle":
             invertedtrianglepoints = [[xpoint - size / 2, ypoint - size / 2],
-                                      [xpoint, ypoint + size / 2], [xpoint + 
-                                       size / 2, ypoint - size / 2]]
+                                      [xpoint, ypoint + size / 2], [xpoint +
+                                                                    size / 2, ypoint - size / 2]]
             shapepoint = Polygon(invertedtrianglepoints, sym, color)
         elif sym == "diamond":
             diamondpoints = [[xpoint, ypoint - size / 2], [xpoint + size / 2,
-                              ypoint], [xpoint, ypoint + size / 2],
-                            [xpoint - size / 2, ypoint]]
+                                                           ypoint], [xpoint, ypoint + size / 2],
+                             [xpoint - size / 2, ypoint]]
             shapepoint = Polygon(diamondpoints, sym, color)
         strshape = shapepoint.printsvg()
-        return strshape        
-        
+        return strshape
+
     def printsvg(self):
-        
+
         """
         Returns the SVG code for the dispersion diagram.
         To compose each part of this graph we take the following 
@@ -2984,7 +3006,7 @@ class Scatterplot:
               using aloop that will check if the value of increasing the
               numbering has exceeded the maximum point of the axis.
               
-              >>> cont=0; auxinc=self.yinc;
+              \>>> cont=0; auxinc=self.yinc;
               ... while self.yinc <= maxaxis:
               ...   linetextAxis = Linetext(xorigin,yorigin-inc,..)
               ...   linetextAxis.printsvg()
@@ -3004,7 +3026,7 @@ class Scatterplot:
               user, using an object or another and will be filled by the color
               indicating the variable C{self.ptcolor}.
               
-              >>>   if self.ptsym == "circle":                
+              \>>>   if self.ptsym == "circle":
               ...       shapePoint = Circle(.....)
               ...   elif self.ptsym == "square":
               ...       shapePoint = Rectangle(.....)
@@ -3031,7 +3053,7 @@ class Scatterplot:
               level of dependency between x and y values of each group
               respectively.
               
-                  >>> if self.corr:
+                  \>>> if self.corr:
                   ...   regLine = Linepath(......)
                   
               This line will be the same color as the data seta.
@@ -3040,7 +3062,7 @@ class Scatterplot:
               and legend. The value of these labels will be stored in variables
               C{"self.xlabel"} and C{"self.ylabel"} respectively.
               
-                  >>> if self.xlabel != "":
+                  \>>> if self.xlabel != "":
                   ...   textX = Text(.....)
                   ... if self.ylabel != "":
                   ...   textY = Verticaltext(.....)
@@ -3057,19 +3079,19 @@ class Scatterplot:
         fontsize = 10
         scatlegendsize = 7
         try:
-            self.ptsize = float(self.ptsize)   
+            self.ptsize = float(self.ptsize)
             xmaxaxis, ymaxaxis = self.getmaxaxis(self.lval)
-            #draw lines axis
-            vline = Line(self.xorigin, self.yorigin, self.xorigin, 
-                                self.yorigin + ymaxaxis, "no")
+            # draw lines axis
+            vline = Line(self.xorigin, self.yorigin, self.xorigin,
+                         self.yorigin + ymaxaxis, "no")
             hline = Line(self.xorigin, self.yorigin + ymaxaxis,
-                                  self.xorigin + xmaxaxis, 
-                                  self.yorigin + ymaxaxis, "no")
+                         self.xorigin + xmaxaxis,
+                         self.yorigin + ymaxaxis, "no")
             string = vline.printsvg() + hline.printsvg()
             cont = 0
             auxinc = int(self.yinc)
             while int(self.yinc) <= ymaxaxis:
-                ylinetext = Linetext(self.xorigin, self.yorigin + ymaxaxis - 
+                ylinetext = Linetext(self.xorigin, self.yorigin + ymaxaxis -
                                      int(self.yinc), fontsize, self.yinc)
                 string += ylinetext.printsvg()
                 self.yinc = auxinc * cont
@@ -3078,19 +3100,19 @@ class Scatterplot:
             self.yinc = auxinc
             while int(self.yinc) <= xmaxaxis:
                 xlinetext = Linetextvertical(self.xorigin + int(self.yinc),
-                                             self.yorigin + ymaxaxis, fontsize, 
+                                             self.yorigin + ymaxaxis, fontsize,
                                              self.yinc)
                 string += xlinetext.printsvg()
                 self.yinc = auxinc * cont
                 cont += 1
-                
-            #draw points
+
+            # draw points
             for cont in range(len(self.lval[int(self.xcolumn) - 1])):
                 xpoint = int(self.lval[int(self.xcolumn) - 1][cont]) \
-                        + int(self.xorigin)
+                         + int(self.xorigin)
                 ypoint = int(self.yorigin) + ymaxaxis \
                          - int(self.lval[int(self.ycolumn) - 1][cont])
-                
+
                 string += self.getsvgpoint(xpoint, ypoint, self.ptsym,
                                            self.ptcolor, self.ptsize)
 
@@ -3099,72 +3121,71 @@ class Scatterplot:
                     xpoint2 = int(self.lval[int(self.xcolumn2) - 1]
                                   [cont]) + int(self.xorigin)
                     ypoint2 = int(self.yorigin) + ymaxaxis - \
-                              int(self.lval[int(ycolumn2) - 1][cont]) 
+                              int(self.lval[int(ycolumn2) - 1][cont])
                     string += self.getsvgpoint(xpoint2, ypoint2, self.pt2sym,
                                                self.pt2color, self.ptsize)
-                  
-            #draw regression line        
+
+            # draw regression line
             if self.corr:
                 lpoints = self.regtocoordenates(
-                                            self.getregressionline(self.lval),
-                                            self.getmaxpoint(self.lval[int(
-                                            self.ycolumn) - 1]))                
+                    self.getregressionline(self.lval),
+                    self.getmaxpoint(self.lval[int(
+                        self.ycolumn) - 1]))
                 regline = Linepath(self.xorigin, self.yorigin, "regline",
                                    lpoints, "none", self.ptcolor)
                 if (len(self.lval) > int(self.xcolumn2)):
                     lpoints2 = self.regtocoordenates(self.getregressionline(
-                                            self.lval[2:]), self.getmaxpoint(
-                                            self.lval[int(ycolumn2) - 1]))               
+                        self.lval[2:]), self.getmaxpoint(
+                        self.lval[int(ycolumn2) - 1]))
                     regline2 = Linepath(self.xorigin, self.yorigin, "regline2",
                                         lpoints2, "none", self.pt2color)
                     string += regline.printsvg() + regline2.printsvg()
                 else:
                     string += regline.printsvg()
-                    
-            #draw the axis labels
+
+            # draw the axis labels
             if self.xlabel != "":
                 xtext = Text(self.xorigin + (xmaxaxis / 2), 1.5 * \
-                              self.yorigin + ymaxaxis, fontsize, self.xlabel)
+                             self.yorigin + ymaxaxis, fontsize, self.xlabel)
                 string += xtext.printsvg()
             if self.ylabel != "":
                 ytext = Verticaltext(self.xorigin - self.xorigin / 2,
                                      self.yorigin + (ymaxaxis / 2),
-                                     fontsize, self.ylabel, 0) 
+                                     fontsize, self.ylabel, 0)
                 string += ytext.printsvg()
-                
-            #draw the legend
-            if self.legend:          
-                scatlegend1 = Hcolumn(self.name, self.xorigin, 
+
+            # draw the legend
+            if self.legend:
+                scatlegend1 = Hcolumn(self.name, self.xorigin,
                                       self.yorigin + ymaxaxis + 70,
                                       self.ptcolor, scatlegendsize,
-                                      scatlegendsize, "scatlegend1", 
+                                      scatlegendsize, "scatlegend1",
                                       "scatect1", "scatext1")
-                if (len(self.lval) > int(self.xcolumn2)):                   
-                    scatlegend2 = Hcolumn(self.name2, self.xorigin, 
-                                          self.yorigin + ymaxaxis + 70 + 
+                if (len(self.lval) > int(self.xcolumn2)):
+                    scatlegend2 = Hcolumn(self.name2, self.xorigin,
+                                          self.yorigin + ymaxaxis + 70 +
                                           1.5 * scatlegendsize, self.pt2color,
                                           scatlegendsize, scatlegendsize,
                                           "scatlegend1", "scatrect2",
                                           "scatext2")
-                    string += scatlegend1.printsvg() + scatlegend2.printsvg()   
+                    string += scatlegend1.printsvg() + scatlegend2.printsvg()
                 else:
                     string += scatlegend1.printsvg()
             if self.title != "":
-                scattitle = Text((self.xorigin + xmaxaxis) / 2, 
+                scattitle = Text((self.xorigin + xmaxaxis) / 2,
                                  self.yorigin / 2, 14, self.title)
-                string += scattitle.printsvg() 
+                string += scattitle.printsvg()
             return string
         except IndexError:
-            print "The number of columns in data file must be equal to the"\
-            + "maximum value indicated by the parameters x, y, x2, y2\n"\
-            + "Please review the input data \nFor help use --help"
-            sys.exit(2) 
+            print("The number of columns in data file must be equal to the" \
+                  + "maximum value indicated by the parameters x, y, x2, y2\n" \
+                  + "Please review the input data \nFor help use --help")
+            sys.exit(2)
 
-###############################################################################
+        ###############################################################################
 
 
-class Lineplot (Scatterplot):
-    
+class Lineplot(Scatterplot):
     """
     Description
     ===========
@@ -3192,7 +3213,7 @@ class Lineplot (Scatterplot):
         - B{C{self.x2}}: for the x coordinate of the second data set.
         - B{C{self.y2}}: for the y coordinate of the second data set.
     
-    >>>      x     y   x2  y2
+    \>>>      x     y   x2  y2
     ...     95    57  285  65
     ...     150   27  359  67
     ...     84    175 278  90
@@ -3211,18 +3232,18 @@ class Lineplot (Scatterplot):
     For this diagram we have chosen the fastest sorting algorithm called
     B{Quicksort}.   
 
-    """    
-    
+    """
+
     def __init__(self, lval, xorigin, yorigin, xcolumn, ycolumn, yinc,
                  fillcolor, ptsize, ptsym, ptcolor, xlabel, ylabel,
                  xcolumn2, ycolumn2, pt2sym, pt2color, name, name2, legend,
                  fillcolor2, title):
-        
+
         Scatterplot.__init__(self, lval, xorigin, yorigin, xcolumn, ycolumn,
                              xcolumn2, ycolumn2, yinc, ptsize, ptsym, pt2sym,
                              ptcolor, pt2color, False, xlabel, ylabel, name,
                              name2, legend, title)
-        #{Style
+        # {Style
         self.fillcolor = fillcolor
         """@ivar:Is the fill color of the lower area of the dotted line for the
         first set of data
@@ -3230,9 +3251,9 @@ class Lineplot (Scatterplot):
         self.fillcolor2 = fillcolor2
         """@ivar:Is the fill color of the lower area of the dotted line for the
         second set of data
-        @type: C{string}"""        
-        #}   
-         
+        @type: C{string}"""
+        # }
+
     def transformtocoordenates(self, lval, ymaxpoint):
         """
         Helper function that transforms each coordinate given in the 
@@ -3251,14 +3272,14 @@ class Lineplot (Scatterplot):
         @type ymaxpoint: C{number}
         @return: List of SVG coordenates
         @rtype: C{number}        
-        """        
-        newlpoints = []   
+        """
+        newlpoints = []
         for num in range(len(lval[int(self.xcolumn) - 1])):
             xcoordenate = int(lval[int(self.xcolumn) - 1][num])
-            ycoordenate = (int(ymaxpoint) - 
-                          int(lval[int(self.ycolumn) - 1][num]))
+            ycoordenate = (int(ymaxpoint) -
+                           int(lval[int(self.ycolumn) - 1][num]))
             newlpoints.append([xcoordenate, ycoordenate])
-        return newlpoints          
+        return newlpoints
 
     def ordenatewithquicksort(self, lval, first, last):
         """
@@ -3288,7 +3309,7 @@ class Lineplot (Scatterplot):
         
         In simple pseudocode, the algorithm might be expressed as this:
 
-              >>>    function quicksort(list)
+              \>>>    function quicksort(list)
               ...     create empty lists less and greater
               ...     if length(list) <= 1
               ...         return list 
@@ -3312,8 +3333,8 @@ class Lineplot (Scatterplot):
         ivar = first
         jvar = last
         lpivot = []
-        pivot = ((int(lval[first][int(self.xcolumn) - 1]) + 
-                 int(lval[last][int(self.xcolumn) - 1])) / 2)
+        pivot = ((int(lval[first][int(self.xcolumn) - 1]) +
+                  int(lval[last][int(self.xcolumn) - 1])) / 2)
         lpivot.append(pivot)
         while ivar < jvar:
             while int(lval[ivar][int(self.xcolumn) - 1]) < pivot:
@@ -3324,9 +3345,9 @@ class Lineplot (Scatterplot):
                 aux1 = int(lval[ivar][int(self.xcolumn) - 1])
                 aux2 = int(lval[ivar][int(self.ycolumn) - 1])
                 lval[ivar][int(self.xcolumn) - 1] = \
-                lval[jvar][int(self.xcolumn) - 1]
+                    lval[jvar][int(self.xcolumn) - 1]
                 lval[ivar][int(self.ycolumn) - 1] = \
-                lval[jvar][int(self.ycolumn) - 1]
+                    lval[jvar][int(self.ycolumn) - 1]
                 lval[jvar][int(self.xcolumn) - 1] = aux1
                 lval[jvar][int(self.ycolumn) - 1] = aux2
                 ivar += 1
@@ -3338,7 +3359,7 @@ class Lineplot (Scatterplot):
         return lval
 
     def printsvg(self):
-        
+
         """
         This diagram is merely an extension of the scatter diagram which
         includes a line that connects all the dots.
@@ -3367,14 +3388,14 @@ class Lineplot (Scatterplot):
                     - In the last position insert another point whose
                       coordinates x, y are the maximum values for each axis.
                       
-                      >>> lpointsOrdenate.insert(0, [lpointsOrdenate[0][0],
+                      \>>> lpointsOrdenate.insert(0, [lpointsOrdenate[0][0],
                       ...                            ymaxaxis])
                       ... lpointsOrdenate.insert(int(len(lpointsOrdenate)),
                       ... [xmaxpoint, ymaxaxis])
                       
                 - Once done, draw the dotted line by an element B{Linepath}
                 
-                     >>> Linepath(self.xorigin, self.yorigin, "regline",
+                     \>>> Linepath(self.xorigin, self.yorigin, "regline",
                      ...          lpointsOrdenate, self.fillcolor,
                      ...          self.ptcolor)
                      
@@ -3396,7 +3417,7 @@ class Lineplot (Scatterplot):
                We will create a line item, the color of the point cloud plus
                a text element.
                
-               >>>  linelegend = Line(self.xorigin, 1.5 * self.yorigin + 
+               \>>>  linelegend = Line(self.xorigin, 1.5 * self.yorigin +
                ...                    ymaxaxis, self.xorigin + lineLegendsize, 
                ...                    1.5 * self.yorigin + ymaxaxis, "no",
                ...                    self.ptcolor)
@@ -3408,21 +3429,21 @@ class Lineplot (Scatterplot):
         @rtype: C{string}        
               
         """
-        
-        #find the maximum value of x and y to determine the size of each axis
+
+        # find the maximum value of x and y to determine the size of each axis
         fontsize = 10
         linelegendsize = 10
         try:
-            self.ptsize = float(self.ptsize)  
-            xmaxaxis, ymaxaxis = self.getmaxaxis(self.lval)             
-            #draw lines axis
+            self.ptsize = float(self.ptsize)
+            xmaxaxis, ymaxaxis = self.getmaxaxis(self.lval)
+            # draw lines axis
             vline = Line(self.xorigin, self.yorigin, self.xorigin,
                          self.yorigin + ymaxaxis, "no")
             hline = Line(self.xorigin, self.yorigin + ymaxaxis,
-                         self.xorigin + xmaxaxis, 
+                         self.xorigin + xmaxaxis,
                          self.yorigin + ymaxaxis, "no")
             string = vline.printsvg() + hline.printsvg()
-            #Draw the axis
+            # Draw the axis
             cont = 0
             auxinc = int(self.yinc)
             while int(self.yinc) <= ymaxaxis:
@@ -3435,42 +3456,42 @@ class Lineplot (Scatterplot):
             self.yinc = auxinc
             while int(self.yinc) <= xmaxaxis:
                 linextext = Linetextvertical(self.xorigin + int(self.yinc),
-                                             self.yorigin + ymaxaxis, fontsize, 
+                                             self.yorigin + ymaxaxis, fontsize,
                                              self.yinc)
                 string += linextext.printsvg()
                 self.yinc = auxinc * cont
                 cont += 1
-            #create axes and the path defined by the dotted line
+            # create axes and the path defined by the dotted line
             lpoints = self.transformtocoordenates(self.lval, ymaxaxis)
-            lpointsordenate = list(self.ordenatewithquicksort(lpoints, 
-                              int(self.xcolumn) - 1, len(lpoints) - 1))
-            #initial and end point of the path
+            lpointsordenate = list(self.ordenatewithquicksort(lpoints,
+                                                              int(self.xcolumn) - 1, len(lpoints) - 1))
+            # initial and end point of the path
             lpointsordenate.insert(0, [lpointsordenate[0][0], ymaxaxis])
             lpointsordenate.append([self.getmaxpoint(self.lval
-                                    [int(self.xcolumn) - 1]), ymaxaxis])
+                                                     [int(self.xcolumn) - 1]), ymaxaxis])
             plotline = Linepath(self.xorigin, self.yorigin, "plotline",
-                               lpointsordenate, self.fillcolor, self.ptcolor)
-            string += plotline.printsvg() 
-            
+                                lpointsordenate, self.fillcolor, self.ptcolor)
+            string += plotline.printsvg()
+
             if (len(self.lval) > int(self.xcolumn2)):
                 lpoints2 = self.transformtocoordenates(self.lval[2:], ymaxaxis)
                 lpointsordenate2 = list(self.ordenatewithquicksort(lpoints2,
-                                   int(self.xcolumn) - 1, len(lpoints2) - 1))
+                                                                   int(self.xcolumn) - 1, len(lpoints2) - 1))
                 lpointsordenate2.insert(0, [lpointsordenate2[0][0], ymaxaxis])
                 lpointsordenate2.append([self.getmaxpoint(self.lval
-                                    [int(self.xcolumn2) - 1]), ymaxaxis])
+                                                          [int(self.xcolumn2) - 1]), ymaxaxis])
                 plotline2 = Linepath(self.xorigin, self.yorigin, "plotline2",
                                      lpointsordenate2, self.fillcolor2,
                                      self.pt2color)
-                string += plotline2.printsvg()       
-            #draw points
+                string += plotline2.printsvg()
+                # draw points
             for cont in range(len(self.lval[int(self.xcolumn) - 1])):
                 xpoint = int(self.lval[int(self.xcolumn) - 1][cont]) \
-                        + int(self.xorigin)
+                         + int(self.xorigin)
                 ypoint = int(self.yorigin) + ymaxaxis \
                          - int(self.lval[int(self.ycolumn) - 1][cont])
-                
-                string += self.getsvgpoint(xpoint, ypoint, self.ptsym, 
+
+                string += self.getsvgpoint(xpoint, ypoint, self.ptsym,
                                            self.ptcolor, self.ptsize)
 
                 if (len(self.lval) > int(self.xcolumn2)):
@@ -3478,26 +3499,26 @@ class Lineplot (Scatterplot):
                     xpoint2 = int(self.lval[int(self.xcolumn2) - 1]
                                   [cont]) + int(self.xorigin)
                     ypoint2 = int(self.yorigin) + ymaxaxis - \
-                              int(self.lval[int(ycolumn2) - 1][cont]) 
+                              int(self.lval[int(ycolumn2) - 1][cont])
                     string += self.getsvgpoint(xpoint2, ypoint2, self.pt2sym,
                                                self.pt2color, self.ptsize)
-    
-            #draw the axis labels
+
+            # draw the axis labels
             if self.xlabel != "":
                 xtext = Text(self.xorigin + (xmaxaxis / 2), 1.5 * self.yorigin
-                              + ymaxaxis, fontsize, self.xlabel)
+                             + ymaxaxis, fontsize, self.xlabel)
                 string += xtext.printsvg()
             if self.ylabel != "":
                 ytext = Verticaltext(self.xorigin - self.xorigin / 2,
                                      self.yorigin + (ymaxaxis / 2),
                                      fontsize, self.ylabel, 0)
                 string += ytext.printsvg()
-                
-            #draw the legend
-            if self.legend:          
+
+            # draw the legend
+            if self.legend:
                 linelegend = Line(self.xorigin, 1.75 * self.yorigin + ymaxaxis,
-                                  self.xorigin + linelegendsize, 
-                                1.75 * self.yorigin + ymaxaxis, "no",
+                                  self.xorigin + linelegendsize,
+                                  1.75 * self.yorigin + ymaxaxis, "no",
                                   self.ptcolor)
                 textlegend = Text(self.xorigin + 2 * linelegendsize,
                                   1.75 * self.yorigin + ymaxaxis, fontsize,
@@ -3505,26 +3526,26 @@ class Lineplot (Scatterplot):
                 if (len(self.lval) > int(self.xcolumn2)):
                     linelegend2 = Line(self.xorigin, 1.8 * self.yorigin +
                                        ymaxaxis + linelegendsize, self.xorigin
-                                       + linelegendsize, 1.8 * self.yorigin + 
+                                       + linelegendsize, 1.8 * self.yorigin +
                                        ymaxaxis + linelegendsize, "no",
                                        self.pt2color)
                     textlegend2 = Text(self.xorigin + 2 * linelegendsize,
                                        1.8 * self.yorigin + ymaxaxis +
                                        linelegendsize, fontsize, self.name2)
                     string += linelegend.printsvg() + textlegend.printsvg() + \
-                              linelegend2.printsvg() + textlegend2.printsvg()   
+                              linelegend2.printsvg() + textlegend2.printsvg()
                 else:
                     string += linelegend.printsvg() + textlegend.printsvg()
             if self.title != "":
-                lineplottitle = Text((self.xorigin + xmaxaxis) / 2, 
+                lineplottitle = Text((self.xorigin + xmaxaxis) / 2,
                                      self.yorigin / 2, 12, self.title)
-                string += lineplottitle.printsvg() 
+                string += lineplottitle.printsvg()
             return string
         except IndexError:
-            print "The number of columns in data file must be equal to the"\
-            + " maximum value indicated by the parameters x, y, x2, y2"\
-            + "\nPlease review the input data \nFor help use --help"\
-            + "\npysvg 0.0.4-Oct2011\nCopyright (C) 2011 Isabel Rodriguez"\
-            + "\nYou can see the full documentation at URL:"\
-            + " \"http://www.pysvg/orgfree.com\""  
+            print("The number of columns in data file must be equal to the" \
+                  + " maximum value indicated by the parameters x, y, x2, y2" \
+                  + "\nPlease review the input data \nFor help use --help" \
+                  + "\npysvg 0.0.4-Oct2011\nCopyright (C) 2011 Isabel Rodriguez" \
+                  + "\nYou can see the full documentation at URL:" \
+                  + " \"http://www.pysvg/orgfree.com\"")
             sys.exit(2)

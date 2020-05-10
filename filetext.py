@@ -50,11 +50,10 @@ def readinputfile(path):
     try:
         datafile = open(path, "r")
     except IOError:
-        print "Inputfile= " + str(path) + "\nNo such file or directory"
-        print "For help use --help or -h"
-        print "pysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"
-        print "You can see the full documentation at URL:" + \
-        "\"http://www.pysvg/orgfree.com\""
+        print("Inputfile= " + str(path) + "\nNo such file or directory")
+        print("For help use --help or -h")
+        print("pysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez")
+        print("You can see the full documentation at URL: \"http://www.pysvg/orgfree.com\"")
         sys.exit(2)
     fileline = datafile.readline()
     while fileline != "":
@@ -69,8 +68,8 @@ def readinputfile(path):
                 auxcad.append(cad[poscad][poscad1])
             finalcad.append(auxcad)
     except IndexError:
-        print "The number of values of the parameters x, x2, y or y2 must" + \
-        "be equal," + " please review the input data \nFor help use --help"
+        print("The number of values of the parameters x, x2, y or y2 must" + \
+        "be equal," + " please review the input data \nFor help use --help")
         sys.exit(2)
     return finalcad
 
@@ -88,7 +87,7 @@ def writesvgfile(path, outstring):
     datafile = open(path, "w")
     datafile.write(outstring)
     datafile.close()
-    print "Done: outputFile=" + str(path)
-    print "pysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"
-    print "You can see the full documentation at URL:" + \
-    "\"http://www.pysvg/orgfree.com\""
+    print("Done: outputFile=" + str(path))
+    print("pysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez")
+    print("You can see the full documentation at URL:" + \
+    "\"http://www.pysvg/orgfree.com\"")

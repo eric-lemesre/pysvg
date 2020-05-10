@@ -23,7 +23,7 @@
    Command Line Usage (Abbreviated)
    ================================
     
-   >>> $pysvg [--h|--help] [--prefab=GRAPHTYPE] [--delim=VALUE] [--x=VALUE]
+\t>>> $pysvg [--h|--help] [--prefab=GRAPHTYPE] [--delim=VALUE] [--x=VALUE]
    ... [--y=VALUE] [--title=STRING] [--xlbl=STRING] [--ylbl=STRING]
    ... [--yrange=VALUE] [--yinc=VALUE] [--ygrid=yes | no] [--animate]
    ... [--filtered] [--legend] ... inputFile
@@ -133,20 +133,19 @@
    The following command will generate a bar diagram in three dimensions with
    purple bars, tittle, legend and no values above the bars.
    
-   >>> $pysvg --prefab bardiagram3d --delim=50 --x=1 --y=2 --yrange=0 --yinc=20
+\t >>> $pysvg --prefab bardiagram3d --delim=50 --x=1 --y=2 --yrange=0 --yinc=20
    ... --ygrid=yes  --barwidth=25 --color=purple --filtered 
    ... --tittle=TITTLE_BAR3D --legend --name=legend_bars3d inputdatafile.txt
 """
 
-__docformat__ = 'epytext en' 
+__docformat__ = 'epytext en'
 __version__ = '0.0.2'
-__author__ = 'Isabel Rodriguez Marin' 
+__author__ = 'Isabel Rodriguez Marin'
 __url__ = 'http://pysvg.orgfree.com/'
 __license__ = 'GPL Open Source License'
 
-
-############################################################################### 
-## Imports
+###############################################################################
+# Imports
 ############################################################################### 
 
 import sys
@@ -155,17 +154,23 @@ import svgelements
 import filetext
 import os
 
+
+###############################################################################
+# Functions
 ############################################################################### 
-## Functions 
-############################################################################### 
 
-#{Argument    
+# {Argument
+
+def print_usage():
+    print("Usage: pysvg [--option=argument] inputFile\nFor help use [-h | --help]")
+    print("pysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez")
+    print("You can see the full documentation at URL:\"http://www.pysvg/orgfree.com\"")
 
 
-def getprocessargs(args, prefab, xcolumn, ycolumn, xcolumn2, ycolumn2, 
+def getprocessargs(args, prefab, xcolumn, ycolumn, xcolumn2, ycolumn2,
                    barwidth, xorigin, yorigin, delim, vals, yinc, yrange,
                    ygrid, radius, values, labels, colorfld, title,
-                   legend, animate, filtered, ptsize, ptsym, pt2sym, ptcolor, 
+                   legend, animate, filtered, ptsize, ptsym, pt2sym, ptcolor,
                    pt2color, corr, xlabel, ylabel, name, name2, color, color2):
     """
     Helper responsible for returning the entire document SVG code. 
@@ -174,13 +179,13 @@ def getprocessargs(args, prefab, xcolumn, ycolumn, xcolumn2, ycolumn2,
         1. Read the input data by calling the function "readinputfile" 
            module filetext
         2. Add the header and the end of svg document
-            >>>     cab=svgelements.SVGElements()
+        \t>>>     cab=svgelements.SVGElements()
             ...     begin,end=cab.printSVG()
         3. Include diagram svg code selected by the user through the command 
            line using the option "-- prefab" and stored in the variable of type
            string c{"chartSVG"}
            
-           >>> if prefab == "bardiagram":
+         \t>>> if prefab == "bardiagram":
            ...    BarDiagram=svgelements.Bardiagram(....)
            ... elif prefab == "pie":
            ...    pieChart=svgelements.PieChart(....)                  
@@ -195,11 +200,11 @@ def getprocessargs(args, prefab, xcolumn, ycolumn, xcolumn2, ycolumn2,
            reporting on this situation the user with a message to standard
            output through.
            
-           >>> else:
+         \t>>> else:
            ...    try:
            ...        raise ValueError
            ...        except ValueError as e:
-           ...        print "The name of the chart must be: \"bardiagram\", 
+           ...        print("The name of the chart must be: \"bardiagram\", 
            ...        \"bardiabram3d\", \"pie\", \"scat\", or \"lines\", for 
            ...        help use --help"
            ...        sys.exit(2)
@@ -207,138 +212,116 @@ def getprocessargs(args, prefab, xcolumn, ycolumn, xcolumn2, ycolumn2,
         4. Write the svg code stored in the variable "charSVG" in the output 
            file by default set for each graph.
            
-           >>> filetext.writeSVGFile(path,begin+chartSVG+end)
+         \t>>> filetext.writeSVGFile(path,begin+chartSVG+end)
     
     @raise ValueError: If the user enters a wrong option.
     @return: Entire document SVG code       
     
-    """ 
-    #read input files
+    """
+    # read input files
     inputargs = ""
-    for inputargs in args:   
-        lval = filetext.readinputfile(inputargs)     
+    for inputargs in args:
+        lval = filetext.readinputfile(inputargs)
     svgdoc = svgelements.Svgelements()
     begin, end = svgdoc.printsvg()
     try:
         (dirname, filename) = os.path.split(inputargs)
-        #raise UnboundLocalError
+        # raise UnboundLocalError
     except UnboundLocalError as error:
-        print "Incorrect options\nUsage: pysvg [options] inputFile\nFor" + \
-        "help use [-h | --help]\n" % error
-        print "pysvg 0.0.2-Oct2011\nCopyright (C) 2011 Isabel Rodriguez"
-        print "You can see the full documentation at URL:" + \
-        "\"http://www.pysvg/orgfree.com\""
+        print("Incorrect options")
+        print("Usage: pysvg [options] inputFile\nFor help use [-h | --help]\n" % error)
+        print("pysvg 0.0.2-Oct2011\nCopyright (C) 2011 Isabel Rodriguez")
+        print("You can see the full documentation at URL:\"http://www.pysvg/orgfree.com\"")
         sys.exit(2)
     if prefab == "bardiagram":
         try:
-            path = os.path.join(str(dirname), 'vbars2D.svg')     
-            if path==filename:
-                raise UnboundLocalError   
-            bardiagram = svgelements.Bardiagram(lval=lval, xorigin=xorigin, 
-                      yorigin=yorigin, xcolumn=xcolumn, ycolumn=ycolumn,
-                      ycolumn2=ycolumn2, barwidth=barwidth, delim=delim, 
-                      vals=vals, yinc=yinc, yrange=yrange, ygrid=ygrid,
-                      fillcolor=color, fillcolor2=color2, name=name, 
-                      name2=name2, title=title, legend=legend)
+            path = os.path.join(str(dirname), 'vbars2D.svg')
+            if path == filename:
+                raise UnboundLocalError
+            bardiagram = svgelements.Bardiagram(lval=lval, xorigin=xorigin,
+                                                yorigin=yorigin, xcolumn=xcolumn, ycolumn=ycolumn,
+                                                ycolumn2=ycolumn2, barwidth=barwidth, delim=delim,
+                                                vals=vals, yinc=yinc, yrange=yrange, ygrid=ygrid,
+                                                fillcolor=color, fillcolor2=color2, name=name,
+                                                name2=name2, title=title, legend=legend)
             chartsvg = bardiagram.printsvg()
         except UnboundLocalError:
-            print "Usage: pysvg [--option=argument] inputFile \n" + \
-            "For help use [-h | --help]"
-            print "pysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"
-            print "You can see the full documentation at URL:" + \
-            "\"http://www.pysvg/orgfree.com\""
+            print_usage()
             sys.exit(2)
     elif prefab == "pie":
         try:
             path = os.path.join(str(dirname), 'piechart.svg')
-            if path==filename:
+            if path == filename:
                 raise UnboundLocalError
-            piechart = svgelements.Piechart(xorigin=xorigin, yorigin=yorigin, 
-                   radius=radius, listvalues=lval, values=values,
-                   labels=labels, colorfld=colorfld, legend=legend,
-                   animate=animate, filtered=filtered, title=title)
+            piechart = svgelements.Piechart(xorigin=xorigin, yorigin=yorigin,
+                                            radius=radius, listvalues=lval, values=values,
+                                            labels=labels, colorfld=colorfld, legend=legend,
+                                            animate=animate, filtered=filtered, title=title)
             chartsvg = piechart.printsvg()
         except UnboundLocalError:
-            print "Usage: pysvg [--option=argument] inputFile \n" + \
-            "For help use [-h | --help]"
-            print "pysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"
-            print "You can see the full documentation at URL:" + \
-            "\"http://www.pysvg/orgfree.com\""
-            sys.exit(2)                 
+            print_usage()
+            sys.exit(2)
     elif prefab == "bardiagram3d":
-        try:            
+        try:
             path = os.path.join(str(dirname), 'vbars3D.svg')
-            if path==filename:
-                raise UnboundLocalError            
+            if path == filename:
+                raise UnboundLocalError
             bardiagram3d = svgelements.Bardiagram3d(lval=lval, xcolumn=xcolumn,
-                       ycolumn=ycolumn, barwidth=barwidth, 
-                       xorigin=xorigin, yorigin=yorigin, delim=delim,
-                       vals=vals, yinc=yinc, yrange=yrange, 
-                       ygrid=ygrid, filtered=filtered, fillcolor=color,
-                       title=title, legend=legend, name=name)
+                                                    ycolumn=ycolumn, barwidth=barwidth,
+                                                    xorigin=xorigin, yorigin=yorigin, delim=delim,
+                                                    vals=vals, yinc=yinc, yrange=yrange,
+                                                    ygrid=ygrid, filtered=filtered, fillcolor=color,
+                                                    title=title, legend=legend, name=name)
             chartsvg = bardiagram3d.printsvg()
         except UnboundLocalError:
-            print "Usage: pysvg [--option=argument] inputFile \n" + \
-            "For help use [-h | --help]"
-            print "pysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"
-            print "You can see the full documentation at URL:" + \
-            "\"http://www.pysvg/orgfree.com\""
-            sys.exit(2)          
+            print_usage()
+            sys.exit(2)
     elif prefab == "scat":
-        try: 
+        try:
             path = os.path.join(str(dirname), 'scatterplot.svg')
-            if path==filename:
-                raise UnboundLocalError      
-            scatterplot = svgelements.Scatterplot(lval=lval, xorigin=xorigin, 
-                      yorigin=yorigin, xcolumn=xcolumn, ycolumn=ycolumn,
-                      xcolumn2=xcolumn2, ycolumn2=ycolumn2, yinc=yinc, 
-                      ptsize=ptsize, ptsym=ptsym, pt2sym=pt2sym,
-                      ptcolor=ptcolor, pt2color=pt2color, corr=corr, 
-                      xlabel=xlabel, ylabel=ylabel, name=name, 
-                      name2=name2, legend=legend, title=title)
+            if path == filename:
+                raise UnboundLocalError
+            scatterplot = svgelements.Scatterplot(lval=lval, xorigin=xorigin,
+                                                  yorigin=yorigin, xcolumn=xcolumn, ycolumn=ycolumn,
+                                                  xcolumn2=xcolumn2, ycolumn2=ycolumn2, yinc=yinc,
+                                                  ptsize=ptsize, ptsym=ptsym, pt2sym=pt2sym,
+                                                  ptcolor=ptcolor, pt2color=pt2color, corr=corr,
+                                                  xlabel=xlabel, ylabel=ylabel, name=name,
+                                                  name2=name2, legend=legend, title=title)
             chartsvg = scatterplot.printsvg()
         except UnboundLocalError:
-            print "Usage: pysvg [--option=argument] inputFile \n" + \
-            "For help use [-h | --help]"
-            print "pysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"
-            print "You can see the full documentation at URL:" + \
-            "\"http://www.pysvg/orgfree.com\""
-            sys.exit(2)           
+            print_usage()
+            sys.exit(2)
     elif prefab == "lines":
         try:
             path = os.path.join(str(dirname), 'lineplot.svg')
-            if path==filename:
+            if path == filename:
                 raise UnboundLocalError
-            lineplot = svgelements.Lineplot(lval=lval, xorigin=xorigin, 
-                      yorigin=yorigin, xcolumn=xcolumn, ycolumn=ycolumn,
-                      xcolumn2=xcolumn2, ycolumn2=ycolumn2, yinc=yinc, 
-                      ptsize=ptsize, ptsym=ptsym, pt2sym=pt2sym,
-                      ptcolor=ptcolor, pt2color=pt2color, xlabel=xlabel,
-                      ylabel=ylabel, name=name, name2=name2,
-                      legend=legend, title=title, fillcolor=color,
-                      fillcolor2=color2)
+            lineplot = svgelements.Lineplot(lval=lval, xorigin=xorigin,
+                                            yorigin=yorigin, xcolumn=xcolumn, ycolumn=ycolumn,
+                                            xcolumn2=xcolumn2, ycolumn2=ycolumn2, yinc=yinc,
+                                            ptsize=ptsize, ptsym=ptsym, pt2sym=pt2sym,
+                                            ptcolor=ptcolor, pt2color=pt2color, xlabel=xlabel,
+                                            ylabel=ylabel, name=name, name2=name2,
+                                            legend=legend, title=title, fillcolor=color,
+                                            fillcolor2=color2)
             chartsvg = lineplot.printsvg()
         except UnboundLocalError:
-            print "Usage: pysvg [--option=argument] inputFile \n" + \
-            "For help use [-h | --help]"
-            print "pysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"
-            print "You can see the full documentation at URL:" + \
-            "\"http://www.pysvg/orgfree.com\""
-            sys.exit(2)    
+            print_usage()
+            sys.exit(2)
     else:
         try:
             raise ValueError
         except ValueError as error:
-            print "PREFABNAME= [bardiagram | bardiabram3d | pie | scat |lines]"
-            print "Usage: pysvg --prefab=PREFABNAME [--option=argument]" + \
-            "inputFile \n%sFor help use [-h | --help]" % error
-            print "pysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez"
-            print "You can see the full documentation at URL:" + \
-            "\"http://www.pysvg/orgfree.com\""
+            print("PREFABNAME= [bardiagram | bardiabram3d | pie | scat |lines]")
+            print("Usage: pysvg --prefab=PREFABNAME [--option=argument] inputFile \n%sFor help use [-h | --help]" % error)
+            print("pysvg 0.0.4-Nov2011\nCopyright (C) 2011 Isabel Rodriguez")
+            print("You can see the full documentation at URL:\"http://www.pysvg/orgfree.com\"")
             sys.exit(2)
     filetext.writesvgfile(path, begin + chartsvg + end)
 
-#{Interface
+
+# {Interface
 
 
 def main():
@@ -347,114 +330,117 @@ def main():
     all variables to their default values.
     @return: the SVG document created while running mainSVG.
     @rtype: C{string} 
-    """ 
+    """
 
     try:
         options, args = getopt.getopt(sys.argv[1:], "h", ["help", "prefab=",
-        "delim=", "x=", "y=", "x2=", "y2=", "vals", "yrange=", "yinc=",
-        "ygrid=", "barwidth=", "values=", "labels=", "color=", "color2=",
-        "colorfld=", "legend", "animate", "filtered", "corr", "ptsize=",
-        "ptsym=", "pt2sym=", "ptcolor=", "pt2color=", "xlbl=", "ylbl=",
-        "fill=", "fill2=", "name=", "name2=", "title="])
-    except getopt.GetoptError, error:
-        print "Usage: pysvg [--option=argument] inputFile \n" + \
-        "%sFor help use [-h | --help]" % error
-        print "pysvg 0.0.2-Oct2011\nCopyright (C) 2011 Isabel Rodriguez"
-        print "You can see the full documentation at URL:" + \
-        "\"http://www.pysvg/orgfree.com\""        
+                                                          "delim=", "x=", "y=", "x2=", "y2=", "vals", "yrange=",
+                                                          "yinc=",
+                                                          "ygrid=", "barwidth=", "values=", "labels=", "color=",
+                                                          "color2=",
+                                                          "colorfld=", "legend", "animate", "filtered", "corr",
+                                                          "ptsize=",
+                                                          "ptsym=", "pt2sym=", "ptcolor=", "pt2color=", "xlbl=",
+                                                          "ylbl=",
+                                                          "fill=", "fill2=", "name=", "name2=", "title="])
+    except getopt.GetoptError as error:
+        print("Usage: pysvg [--option=argument] inputFile \n%sFor help use [-h | --help]" % error)
+        print("pysvg 0.0.2-Oct2011\nCopyright (C) 2011 Isabel Rodriguez")
+        print("You can see the full documentation at URL:\"http://www.pysvg/orgfree.com\"")
         sys.exit(2)
     prefab = ""
-    #POSITION OPTIONS
-    delim, xcolumn, ycolumn, xcolumn2, ycolumn2 = 25, 1, 2, 3, 3 
+    # POSITION OPTIONS
+    delim, xcolumn, ycolumn, xcolumn2, ycolumn2 = 25, 1, 2, 3, 3
     vals, yorigin, xorigin = False, 100, 100
-    #VBAR AND VBAR3D OPTIONS
-    yrange, yinc, ygrid = 0, 10, False 
+    # VBAR AND VBAR3D OPTIONS
+    yrange, yinc, ygrid = 0, 10, False
     barwidth, color, color2 = 25, "none", "none"
-    #PIECHART OPTIONS
-    colorfld, values, labels, radius = 3, 2, 1, 100 
+    # PIECHART OPTIONS
+    colorfld, values, labels, radius = 3, 2, 1, 100
     legend, name, name2, title = False, "Enter_text", "Enter_text", ""
     animate, filtered = False, False
-    #SCATTERPLOT AND LINEPLOT OPTIONS
+    # SCATTERPLOT AND LINEPLOT OPTIONS
     corr = False
     ptsize, ptsym, pt2sym = 4, "circle", "square"
     ptcolor, pt2color = "red", "blue"
     xlbl, ylbl = "", ""
     for option, arg in options:
         if option in ("-h", "--help"):
-            print __doc__
+            print(__doc__)
             sys.exit(2)
-        if option == ("--prefab"):
+        if option == "--prefab":
             prefab = arg
-        if option == ("--delim"):
+        if option == "--delim":
             delim = arg
-        if option == ("--x"):
+        if option == "--x":
             xcolumn = arg
-        if option == ("--y"):
+        if option == "--y":
             ycolumn = arg
-        if option == ("--x2"):
+        if option == "--x2":
             xcolumn2 = arg
-        if option == ("--y2"):
+        if option == "--y2":
             ycolumn2 = arg
-        if option == ("--yinc"):
+        if option == "--yinc":
             yinc = arg
-        if option == ("--yrange"):
+        if option == "--yrange":
             yrange = arg
-        if option == ("--vals"):
+        if option == "--vals":
             vals = True
-        if option == ("--ygrid"):
+        if option == "--ygrid":
             ygrid = arg
-        if option == ("--barwidth"):
+        if option == "--barwidth":
             barwidth = arg
-        if option == ("--values"):
+        if option == "--values":
             values = arg
-        if option == ("--color") or option == ("--fill"):
+        if option == "--color" or option == "--fill":
             color = arg
-        if option == ("--color2") or option == ("--fill2"):
+        if option == "--color2" or option == "--fill2":
             color2 = arg
-        if option == ("--labels"):
+        if option == "--labels":
             labels = arg
-        if option == ("--colorfld"):
+        if option == "--colorfld":
             colorfld = arg
-        if option == ("--legend"):
+        if option == "--legend":
             legend = True
-        if option == ("--animate"):
+        if option == "--animate":
             animate = True
-        if option == ("--filtered"):
-            filtered = True        
-        if option == ("--corr"):
+        if option == "--filtered":
+            filtered = True
+        if option == "--corr":
             corr = True
-        if option == ("--ptsize"):
+        if option == "--ptsize":
             ptsize = arg
-        if option == ("--ptsym"):
+        if option == "--ptsym":
             ptsym = arg
-        if option == ("--pt2sym"):
+        if option == "--pt2sym":
             pt2sym = arg
-        if option == ("--ptcolor"):
+        if option == "--ptcolor":
             ptcolor = arg
-        if option == ("--pt2color"):
+        if option == "--pt2color":
             pt2color = arg
-        if option == ("--xlbl"):
+        if option == "--xlbl":
             xlbl = arg
-        if option == ("--ylbl"):
+        if option == "--ylbl":
             ylbl = arg
-        if option == ("--name"):
+        if option == "--name":
             name = arg
-        if option == ("--name2"):
+        if option == "--name2":
             name2 = arg
-        if option == ("--title"):
+        if option == "--title":
             title = arg
-             
-    getprocessargs(args=args, prefab=prefab, xcolumn=xcolumn, 
-                   ycolumn=ycolumn, xcolumn2=xcolumn2, ycolumn2=ycolumn2, 
-                   barwidth=barwidth, xorigin=xorigin, yorigin=yorigin, 
+
+    getprocessargs(args=args, prefab=prefab, xcolumn=xcolumn,
+                   ycolumn=ycolumn, xcolumn2=xcolumn2, ycolumn2=ycolumn2,
+                   barwidth=barwidth, xorigin=xorigin, yorigin=yorigin,
                    delim=delim, vals=vals, yinc=yinc, yrange=yrange,
-                   ygrid=ygrid, radius=radius, values=values, 
-                   labels=labels, colorfld=colorfld, title=title,  
-                   legend=legend, animate=animate, filtered=filtered, 
-                   ptsize=ptsize, ptsym=ptsym, pt2sym=pt2sym, 
+                   ygrid=ygrid, radius=radius, values=values,
+                   labels=labels, colorfld=colorfld, title=title,
+                   legend=legend, animate=animate, filtered=filtered,
+                   ptsize=ptsize, ptsym=ptsym, pt2sym=pt2sym,
                    ptcolor=ptcolor, pt2color=pt2color, corr=corr,
                    xlabel=xlbl, ylabel=ylbl, name=name,
                    name2=name2, color=color, color2=color2)
+
 
 if __name__ == '__main__':
     main()
