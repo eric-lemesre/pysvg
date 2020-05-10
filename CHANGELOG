@@ -1,0 +1,47 @@
+pySVG (0.0.4) unstable;
+
+  * Initial release: Version 0.0.1 < Oct 2011 >
+
+  * New Upstream release: Version 0.0.2 <Friday, 7 Oct 2011>
+
+	Changes in this version:
+
+		- Exceptions to check the number of input parameters in command line
+
+		- Exceptions to verify the number of data columns in the input file.
+
+		- Improvements to the graphics display lines and scatterplot, removing 
+		  pointtext variable, in the class method printsvg of this graphics within 
+		  svgelements.py module, which shows the coordinates of each point with a 
+		  text object.
+
+                - Change in the path of svg output file so that you save in the same 
+		  directory where the file is the input data.
+
+  * New Upstream release: Version 0.0.3 <Wednesday, 27 Oct 2011>
+
+	Changes in this version:
+
+		- Improvements in the development of source code which offer greater clarity to the developer.
+		  Code verification by the programs: pep8 and pylint
+
+		- Correction in the implementation of the regression line in the scatterplot
+
+  * New Upstream release: Version 0.0.4 <Thursday, 17 Nov 2011>
+
+	Changes in this version:
+
+    		- Modified the structure of the class method Scatterplot "printsvg" eliminating duplication of branches and included in the auxiliary function
+        	  "getsvgpoints"
+
+    		- Modified class structure Lineplot making it to be a derived class Scatterplot class to access all its methods and avoid duplication of code.
+
+    		- Established parameters to their default values in the headwaters of the methods to reduce the number of parameters in the calls
+        	  themselves
+
+    		- Included in the call to the constructor methods a modify functionality in the order of the parameters without altering the original
+        	  functionality of the program "Method_parameter=Call_parameter".
+
+    		- Update the position of the axis labels in the diagrams of lines and scatterplots
+
+ -- Isabel <isabel_rguez@hotmail.com>  Thu, 17 Nov 2011
